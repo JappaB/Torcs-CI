@@ -18,7 +18,7 @@
 ROBOT       = usr_2016
 MODULE      = ${ROBOT}.so
 MODULEDIR   = drivers/${ROBOT}
-SOURCES     = ${ROBOT}.cpp driver.cpp opponent.cpp spline.cpp pit.cpp \
+SOURCES     = ${ROBOT}.cpp CarControl.cpp ObstacleSensors.cpp SimpleParser.cpp sensors.cpp driver.cpp opponent.cpp spline.cpp pit.cpp \
 	strategy.cpp cardata.cpp line.cpp raceline.cpp linemode.cpp manual_override.cpp
 
 SHIPDIR     = drivers/${ROBOT}
