@@ -1,0 +1,17 @@
+freeglut3
+freeglut3-dev
+libplib1
+libplib-dev
+libopenal1
+libopenal-dev
+libalut0
+libalut-dev
+libxmu-dev
+libxmu-headers
+libxmu6
+libxrender1
+libxrender-dev
+libxrandr-dev
+libpng16-dev
+libvorbis-dev
+libxi-dev

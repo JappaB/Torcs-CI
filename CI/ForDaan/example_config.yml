@@ -1,0 +1,5 @@
+players: example_players.yml
+controller:
+  torcs_config_file: ./example_torcs_config.xml
+rater:
+  filename: ./example_ratings_file.csv

@@ -1,0 +1,5 @@
+beautifulsoup4
+elo
+lxml
+psutil
+pyyaml
