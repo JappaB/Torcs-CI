@@ -1,0 +1,73 @@
+
+Bot name: hymie_2015
+Version: 1.3
+created: 2015-07-14
+copyleft: 
+   Andrew Sumner <novocas7rian@gmail.com>
+   MLuc -cern91- <mluc@cern91.net>
+   John Isham <isham.john@gmail.com>
+   Remi Coulom
+   Bernhard Wymann <berniw@bluewin.ch>
+
+The origins of this robot began with Andrew melding the raceline logic from 
+Remi's K1999 and the framework code from Berniw's BT into a new bot, "locus",
+which was designed to provide a competitive entry-level codebase for the 
+annual TRB championship.
+
+John used locus and made various modifications, then MLuc built on his work
+with further enhancements.  Andrew has since then used MLuc's bot as a base,
+introducing elements from his older (K1999-based) USR robot in order to 
+create Hymie_2015.
+
+
+_INSTALL:
+* On Windows
+The Windows project file hymie_2015.vcproj can be used with VC++ 2005 or later.
+ You can use the *.dsp file with your VS 2008.
+
+* On Linux
+$ tar xvjf hymie_2015.tar.bz2 -C $TORCS_BASE/src/drivers
+$ cd $TORCS_BASE/src/drivers/hymie_2015
+$ make clean
+$ make
+$ sudo make install
+
+HISTORY:
+1.0
+  - Initial version for first race in TRB 2015
+
+1.1
+  - Improved overtaking & recovery steering
+  - Fixed memory errors thanks to Danny's valgrind logs
+  - Improved calculation of car repairs in pitstops
+
+1.2
+  - Enhancements to bump handling for the dirt-2 race
+  - Memory corruption fixes
+  - Improvements to fuel strategy
+  - Preloaded raceline from file reducing computation time
+  - Improvements to collision braking, and more overtaking enhancements
+
+1.3
+  - Significant improvements to avoidance steering & braking
+  - More fuel strategy tweaks
+
+1.4
+  - Even more improvements to avoidance steering & braking
+
+1.5
+  - Substantial improvements to overtaking logic.
+
+1.6
+  - Better detection of corner apexes in overtaking planning
+  - improved recovery to raceline
+
+1.7
+  - bugfixes
+  - improved overtaking decisions
+  - yet more offline steering tweaks
+
+2016:
+2.0
+  - tons of overtaking/offline handling improvements developed 
+    during the offseason

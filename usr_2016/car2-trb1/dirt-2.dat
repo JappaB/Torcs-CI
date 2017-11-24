@@ -1,0 +1,177 @@
+rl right margin<
+0 55 1.0
+rl right margin<
+60 140 3.0
+rl right margin<
+160 180 4.0
+rl right margin<
+200 230 4.5
+rl right margin<
+200 270 2.0
+rl right margin<
+310 335 2.0
+rl right margin<
+380 420 5.0
+rl right margin<
+440 480 5.0
+rl right margin<
+500 530 -0.1
+rl right margin<
+564 580 2.0
+rl right margin<
+555 580 4.0
+rl right margin<
+600 630 4.0
+rl right margin<
+631 645 1.0
+rl right margin<
+646 675 -2.0
+right margin<
+720 805 -0.1
+rl right margin<
+810 850 1.4
+right margin<
+810 1000 2.0
+rl left margin<
+110 172 3.0
+rl left margin<
+230 280 -1.0
+rl left margin<
+281 300 1.0
+rl left margin<
+281 300 0.0
+rl left margin<
+301 390 -1.0
+rl left margin<
+400 460 4.0
+rl left margin<
+490 500 1.6
+rl left margin<
+525 553 1.5
+rl left margin<
+580 670 -0.1
+
+left bump caution<
+60 140 0.0
+right bump caution<
+60 140 0.0
+left bump caution<
+141 400 0.0
+right bump caution<
+141 400 0.0
+
+leftcornerspeed<
+0 77 13.0
+leftcornerspeed<
+78 110 36.0
+rightcornerspeed<
+55 218 15.0
+leftcornerspeed<
+170 195 8.0
+leftcornerspeed<
+196 225 25.0
+cornerspeed<
+210 250 40.0
+
+leftcornerspeed<
+270 293 4.0
+leftcornerspeed<
+294 310 34.0
+leftcornerspeed<
+294 310 34.0
+rightcornerspeed<
+280 295 10.0
+cornerspeed<
+270 300 15.0
+cornerspeed<
+334 350 40.0
+rightcornerspeed<
+380 407 2.0
+cornerspeed<
+510 540 17.5
+leftcornerspeed<
+525 543 2.0
+leftcornerspeed<
+544 560 28.0
+rightcornerspeed<
+530 550 10.0
+rightcornerspeed<
+555 587 1.0
+cornerspeed<
+545 554 60.0
+cornerspeed<
+550 575 16.0
+cornerspeed<
+575 600 40.0
+cornerspeed<
+592 645 22.0
+leftcornerspeed<
+645 695 17.0
+rightcornerspeed<
+645 695 17.0
+cornerspeed<
+646 680 24.0
+leftcornerspeed<
+700 713 6.0
+leftcornerspeed<
+714 740 34.0
+cornerspeed<
+726 750 40.0
+leftcornerspeed<
+795 808 6.0
+leftcornerspeed<
+809 830 36.0
+cornerspeed<
+820 850 40.0
+rightcornerspeed<
+690 750 15.0
+rightcornerspeed<
+750 830 13.0
+max speed<
+120 125 32.0
+max speed<
+370 380 15.0
+max speed<
+400 456 22.7
+max speed<
+457 500 20.7
+brakemargin<
+360 390 2.0
+lookahead<
+400 510 11.0
+Xeftcornerspeed<
+532 553 13.0
+Xrakedelay<
+680 725 15.0
+
+lookahead left<
+50 90 20.0
+lookahead left<
+190 218 12.0
+lookahead right<
+190 218 10.0
+lookahead left<
+280 300 13.0
+lookahead right<
+280 300 5.0
+lookahead left<
+310 330 8.0
+lookahead right<
+470 540 6.0
+lookahead right<
+570 585 2.0
+lookahead left<
+525 550 16.0
+lookahead left<
+590 690 13.0
+lookahead left<
+703 730 12.0
+lookahead left<
+799 820 12.0
+lookahead left<
+0 1000 4.0
+lookahead right<
+0 1000 9.0
+
+lookahead<
+544 547 5.0

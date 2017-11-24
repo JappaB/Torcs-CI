@@ -1,0 +1,76 @@
+rl left margin<
+220 640 10.0
+racelinecurve<
+220 650 0.05
+leftcornerspeed<
+930 1030 40.0
+rightcornerspeed<
+930 1030 40.0
+left margin<
+1140 1240 0.4
+max speed<
+1200 1210 51.7
+lookahead<
+1200 1310 15.0
+leftcornerspeed<
+1200 1310 20.0
+rightcornerspeed<
+1200 1310 27.0
+rl right margin<
+1200 1280 -0.3
+rl left margin<
+1270 1320 -1.0
+leftcornerspeed<
+1340 1430 20.0
+rightcornerspeed<
+1340 1450 23.0
+cornerspeed slow<
+1290 1430 19.0
+rl right margin<
+1300 1430 0.3
+rl right margin<
+1410 1500 0.9
+
+left margin<
+1340 1410 -1.0
+rl left margin<
+1340 1410 -0.8
+rl left margin<
+1440 1470 -0.6
+
+rightcornerspeed<
+1950 2010 13.0
+rightcornerspeed<
+2011 2200 27.0
+leftcornerspeed<
+1950 2010 12.5
+leftcornerspeed<
+2011 2042 27.0
+leftcornerspeed<
+2043 2075 13.0
+cornerspeed<
+1950 2010 18.5
+rl left margin<
+1970 2000 0.0
+rl right margin<
+2010 2045 0.3
+rl left margin<
+2045 2085 0.3
+rl right margin<
+2080 2120 -2.0
+outside steering dampener<
+1950 2300 -800
+
+
+lookahead<
+2460 2740 16.0
+leftcornerspeed<
+2460 2700 14.0
+brakedelay<
+2460 2650 29
+rl left margin<
+2550 2580 -0.4
+rl right margin<
+2580 2650 0.4
+
+

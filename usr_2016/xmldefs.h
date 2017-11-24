@@ -1,0 +1,195 @@
+/***************************************************************************
+
+    file                 : driver.h
+    created              : Thu Dec 20 01:20:19 CET 2002
+    copyright            : (C) 2002-2004 Bernhard Wymann
+    email                : berniw@bluewin.ch
+    version              : $Id: xmldefs.h 5626 2013-07-24 13:57:49Z torcs-ng $
+
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#ifndef _XMLDEFS_H_
+#define _XMLDEFS_H_
+
+#define SECT_PRIVATE           "hymie private"
+
+// raceline values
+#define PRV_ITERATIONS         "iterations"
+#define PRV_SIDE_ITERATIONS    "side iterations"
+#define PRV_INTMARGIN          "intmargin"
+#define PRV_EXTMARGIN          "extmargin"
+#define PRV_AVOID_INTMARGIN    "avoidintmargin"
+#define PRV_AVOID_EXTMARGIN    "avoidextmargin"
+#define PRV_MINTURNINVERSE     "min turn inverse"
+#define PRV_CURVE_FACTOR       "curvefactor"
+#define PRV_ACCEL_CURVE        "accel curve"
+#define PRV_BRAKE_CURVE        "brake curve"
+#define PRV_ACCEL_CURVE_LIMIT  "accel curve limit"
+#define PRV_BRAKE_CURVE_LIMIT  "brake curve limit"
+#define PRV_SECURITY           "security"
+#define PRV_STEER_GAIN         "steer gain"
+#define PRV_STEER_SKID         "steer skid"
+#define PRV_STEER_SKID_OFFLINE "steer skid offline"
+#define PRV_OUTSTEER_REDUCER   "outsteer speed reducer"
+#define PRV_LOOKAHEAD          "lookahead"
+#define PRV_LOOKAHEAD_EMPTY    "lookahead empty"
+#define PRV_LOOKAHEAD_LEFT     "lookahead left"
+#define PRV_LOOKAHEAD_RIGHT    "lookahead right"
+#define PRV_SKID_ACCEL         "skid accel"
+#define PRV_SHIFT              "gear shift"
+#define PRV_SHIFT_UP           "gear shift up"
+#define PRV_SHIFT_DOWN         "gear shift down"
+#define PRV_OVERTAKE_CAUTION   "overtake caution"
+#define PRV_SKID_CORRECTION    "skid correction"
+#define PRV_MIN_CORNER_INV     "min corner inverse"
+#define PRV_INC_CORNER_INV     "increase corner inverse"
+#define PRV_INC_CORNER_FACTOR  "increase corner factor"
+#define PRV_BASE_SPEED         "base speed"
+#define PRV_BASE_SPEED_X       "base speed factor"
+#define PRV_AVOID_SPEED        "add avoid speed"
+#define PRV_AVOID_SPEED_X      "avoid speed factor"
+#define PRV_AVOID_BRAKE        "add avoid brake"
+#define PRV_AVOID_BRAKE_X      "avoid brake factor"
+#define PRV_INT_MARGIN         "int margin"
+#define PRV_EXT_MARGIN         "ext margin"
+#define PRV_RL_RIGHT_MARGIN    "rl right margin"
+#define PRV_RL_LEFT_MARGIN     "rl left margin"
+#define PRV_BASE_BRAKE         "base brake"
+#define PRV_BASE_BRAKE_X       "base brake factor"
+#define PRV_BRAKE_MOD          "brake mod"
+#define PRV_BRAKE_POWER        "brake power"
+#define PRV_SPEED_LIMIT        "speed limit"
+#define PRV_RACELINE_DEBUG     "raceline debug"
+#define PRV_ACCEL_EXIT         "accel exit"
+#define PRV_BUMP_CAUTION       "bump caution"
+#define PRV_LEFT_BUMP_CAUTION  "left bump caution"
+#define PRV_RIGHT_BUMP_CAUTION "right bump caution"
+#define PRV_MAX_SPEED          "max speed"
+#define PRV_SLOPE_FACTOR       "slope factor"
+#define PRV_STEER_MOD          "steer mod"
+#define PRV_EXIT_BOOST         "exit boost"
+#define PRV_EXIT_BOOST_X       "exit boost factor"
+#define PRV_AV_EXIT_BOOST      "avoid exit boost"
+#define PRV_AV_EXIT_BOOST_X    "avoid exit boost factor"
+#define PRV_ACCEL_REDUX_X      "accel redux factor"
+#define PRV_BEGIN              "bgn"
+#define PRV_END                "end"
+#define PRV_OFFTRACK_ALLOWED   "offtrack allowed"
+#define PRV_OFFTRACK_RLIMIT    "rough limit"
+#define PRV_EDGE_LINE_MARGIN   "edge line margin"
+#define PRV_SAVE_TRACK         "save track"
+#define PRV_LOAD_TRACK         "load track"
+#define PRV_ERROR_CORRECTION   "error correction factor"
+#define PRV_TEST_RACELINE      "test raceline"
+#define PRV_USE_MERGED_SPEED   "merged speed"
+#define PRV_TRANSITION_INC     "transitionincrement"
+#define PRV_LFT_TRANS_INC      "lefttransitionincrement"
+#define PRV_RGT_TRANS_INC      "righttransitionincrement"
+#define PRV_CORNERSTEER        "cornersteer"
+
+// raceline override value
+#define PRV_CORNERSPEED        "cornerspeed"
+#define PRV_CORNERSPEED_MID    "cornerspeed mid"
+#define PRV_CORNERSPEED_SLOW   "cornerspeed slow"
+#define PRV_CORNERSPEED_FACTOR "cornerspeed factor"
+#define PRV_OFFLINE_BRAKEDELAY "offlinebrakedelay"
+#define PRV_BRAKEDELAY         "brakedelay"
+#define PRV_BRAKEDELAY_MID     "brakedelay mid"
+#define PRV_BRAKEDELAY_SLOW    "brakedelay slow"
+#define PRV_OUTSIDECORNERSPEED "outsidecornerspeed"
+#define PRV_INSIDECORNERSPEED  "insidecornerspeed"
+#define PRV_LEFTCORNERSPEED    "leftcornerspeed"
+#define PRV_RIGHTCORNERSPEED   "rightcornerspeed"
+#define PRV_AVOIDBRAKEDELAY    "avoidbrakedelay"
+#define PRV_RACELINECURVE      "racelinecurve"
+#define PRV_AVOID_BUMPCAUTION  "avoid bump caution"
+#define PRV_AVOID_SLOPE        "avoid slope factor"
+#define PRV_LEFT_MARGIN        "left margin"
+#define PRV_LEFT_MARGIN_RL     "left margin rl"
+#define PRV_RIGHT_MARGIN       "right margin"
+#define PRV_RIGHT_MARGIN_RL    "right margin rl"
+#define PRV_LEFT_MARGIN_MID    "left margin mid"
+#define PRV_RIGHT_MARGIN_MID   "right margin mid"
+#define PRV_LEFT_MARGIN_SLOW   "left margin slow"
+#define PRV_RIGHT_MARGIN_SLOW  "right margin slow"
+#define PRV_PREFERRED_SIDE     "preferred side"
+
+// driver values
+#define PRV_VERBOSE            "modeverbose"
+#define PRV_STRATEGY_VERBOSE   "strategyverbose"
+#define PRV_STEER_VERBOSE      "steerverbose"
+#define PRV_DISPLAYSETTING     "showsetting"
+#define PRV_QUALIF_TEST        "chkqualiftime"
+#define PRV_PIT_TEST           "chkpitstop"
+#define PRV_PIT_START_OVERRIDE0 "pit start entry" // at this dist from start the car will straighten ready for pit entry
+#define PRV_PIT_START_OVERRIDE1 "pit start low speed" // by this distance the car will be at pit speed
+#define PRV_PIT_START_OVERRIDE2 "pit start turn in"   // where the spline curves towards pits
+#define PRV_PIT_EXIT_OVERRIDE  "pit exit override"
+#define PRV_PIT_ENTRY_OFFSET   "pit entry offset"
+#define PRV_PIT_EXIT_OFFSET   "pit exit offset"
+#define PRV_PIT_OFFSET         "pit offset"
+#define PRV_PIT_EXIT_SPEED     "pit exit speed"
+#define PRV_PIT_MAX_SPEED      "pit max speed"
+#define PRV_PIT_MAX_SPEED_OFFSET "pit max speed offset"
+#define PRV_NO_PIT             "no pit"
+#define PRV_FORCE_PIT          "force pit"
+#define PRV_PIT_STRATEGY       "pitstrat"
+#define PRV_PITSTOP_TIME       "pitstop time"
+#define PRV_LINE_INDEX         "lineindex"
+#define PRV_FUEL_FACTOR        "fueltankfactor"
+#define PRV_MAXFUEL            "max fuel"
+#define PRV_LETPASS            "LetPass"
+#define PRV_TCL_SLIP           "tcl_slip"
+#define PRV_ABS_SLIP           "abs_slip"
+#define PRV_TCL_RANGE          "tcl_range"
+#define PRV_ABS_RANGE          "abs_range"
+#define PRV_TURN_SPEED         "turnspeed"
+#define PRV_OFFLINE_TURNSPEED  "offlineturnspeed"
+#define PRV_BRAKE_MARGIN       "brakemargin"
+#define PRV_COLLBRAKE_TIMPACT  "coll brake timpact"
+#define PRV_COLLBRAKE_BOOST    "coll brake boost"
+#define PRV_PIT_EXTRA_LENGTH   "pit start extra length"
+#define PRV_AVOID_OFFSET       "avoid offset"
+#define PRV_FULLTANK_PERCENT   "full tank percentage"
+#define PRV_MIDTANK_PERCENT    "mid tank percentage"
+#define PRV_SPEED_MULTIPLIER   "speed multiplier"
+#define PRV_WARN_MULTIPLIER    "brake warn multiplier"
+#define PRV_BRAKE_MULTIPLIER   "brake multiplier"
+#define PRV_BRAKE_COEFFICIENT  "brake coefficient"
+#define PRV_OUTSIDE_OVERTAKE   "outside overtake inhibitor"
+#define PRV_OUTSIDE_DAMPENER   "outside steering dampener"           // the smaller value the more it dampens
+#define PRV_OUTSIDE_DAMPENER_O "outside steering dampener overlap"   // steering to the outside. Values > 1 will
+#define PRV_OUTSIDE_DAMPENER_A "outside steering dampener accel"     // increase outside steering.
+#define PRV_SPEED_ADVANCE      "speed advance"
+#define PRV_SPEED_DIVISOR      "speed divisor"
+#define PRV_LEFT_OVERTAKE      "left overtake"
+#define PRV_RIGHT_OVERTAKE     "right overtake"
+#define PRV_OVERTAKE           "overtake"
+#define PRV_RL_FOR_OVERTAKE    "rl for overtake"
+#define PRV_OVERTAKE_SPD_DIFF  "speed diff for overtake"
+#define PRV_STAY_INSIDE        "stay inside"
+
+#define PRV_REVS_UP            "revs change up"
+#define PRV_REVS_DOWN          "revs change down"
+#define PRV_REVS_DOWN_MAX      "revs change down max"
+#define PRV_NO_TEAM_WAITING    "no team waiting"
+#define PRV_TEAM_WAIT_TIME     "team wait time"
+
+#define BT_ATT_FUELPERLAP "fuelperlap"
+#define BT_ATT_FUELPERSECOND "fuelpersecond"
+#define BT_ATT_MUFACTOR "mufactor"
+#define BT_ATT_PITTIME "pittime"
+#define BT_ATT_BESTLAP "bestlap"
+#define BT_ATT_WORSTLAP "worstlap"
+#define BT_ATT_TEAMMATE "teammate"
+
+#endif

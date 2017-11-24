@@ -1,0 +1,236 @@
+right margin<
+200 300 4.0
+rl right margin<
+200 214 0.0
+rl right margin<
+215 250 1.5
+rl right margin<
+251 290 3.0
+rl right margin<
+291 340 -1.0
+rl left margin<
+-251 300 1.0
+xrl right margin<
+560 580 3.0
+xrl right margin<
+581 610 -2.0
+left margin<
+280 330 -0.1
+left margin<
+510 555 0.5
+left margin<
+430 450 -1.0
+rl left margin<
+569 600 0.1
+left margin<
+569 600 0.8
+rl right margin<
+570 600 -0.5
+left margin<
+610 625 -1.0
+left margin<
+660 685 -1.0
+rl left margin<
+700 735 -2.0
+rl right margin<
+700 725 8.0
+left margin<
+795 820 0.5
+right margin<
+620 659 0.9
+right margin<
+660 690 1.2
+right margin<
+920 950 0.5
+left margin<
+900 925 0.3
+left margin<
+960 990 0.5
+rl left margin<
+960 970 2.0
+rl left margin<
+971 985 -1.0
+rl left margin<
+1150 1175 -0.4
+rl left margin<
+1176 1220 2.5
+rl right margin<
+990 1040 0.8
+right margin<
+990 1040 0.8
+right margin<
+1200 1225 -0.2
+left margin<
+1470 1500 -1.0
+left margin<
+1580 1605 -1.0
+right margin<
+1615 1700 1.0
+left margin<
+1705 1721 0.3
+right margin<
+1725 1745 0.6
+left margin<
+1730 1770 1.2
+left margin<
+1985 2010 0.3
+right margin<
+1900 2000 1.0
+right margin<
+2010 2040 -1.0
+left margin<
+2045 2075 -1.0
+
+preferred_side<
+0 290 2
+
+overtake<
+0 260 1.0
+lookahead<
+100 330 15.5
+brakedelay<
+100 335 26.0
+cornerspeed slow<
+100 280 22.0
+cornerspeed<
+100 280 23.0
+cornerspeed slow<
+281 335 16.5
+cornerspeed<
+281 335 17.0
+leftcornerspeed<
+100 280 24.0
+leftcornerspeed<
+281 303 14.0
+leftcornerspeed<
+304 330 28.0
+leftcornerspeed<
+331 360 14.0
+rightcornerspeed<
+331 360 15.0
+rightcornerspeed<
+450 560 20.0
+
+cornerspeed<
+360 559 25.0
+cornerspeed<
+560 585 20.5
+cornerspeed<
+586 615 18.0
+leftcornerspeed<
+510 560 23.0
+leftcornerspeed<
+511 655 16.5
+leftcornerspeed<
+656 680 14.0
+
+max speed<
+720 728 33
+
+lookahead<
+720 750 18.5
+cornerspeed<
+720 735 15.5
+cornerspeed<
+736 750 15.0
+rightcornerspeed<
+736 760 18.0
+
+leftcornerspeed<
+795 810 10.0
+cornerspeed slow<
+761 899 17.5
+cornerspeed<
+761 899 18.5
+
+cornerspeed<
+900 960 18.5
+cornerspeed<
+961 985 18.5
+cornerspeed slow<
+986 1040 19.0
+cornerspeed<
+986 1040 21.0
+leftcornerspeed<
+975 1040 19.0
+rightcornerspeed<
+975 1020 16.0
+
+cornerspeed<
+1041 1159 25.5
+rightcornerspeed<
+1041 1180 15.0
+
+cornerspeed slow<
+1160 1220 19.5
+cornerspeed<
+1160 1215 18
+cornerspeed<
+1216 1260 35
+leftcornerspeed<
+1160 1216 14
+leftcornerspeed<
+1217 1260 26
+rightcornerspeed<
+1190 1210 11
+rightcornerspeed<
+1211 1230 30
+
+cornerspeed slow<
+1600 1695 21.5
+cornerspeed<
+1600 1695 23.0
+leftcornerspeed<
+1630 1695 13.0
+rightcornerspeed<
+1520 1690 10.0
+
+cornerspeed<
+1696 1725 17
+cornerspeed slow<
+1726 1765 16.0
+cornerspeed<
+1726 1765 17.5
+leftcornerspeed<
+1726 1765 18.5
+leftcornerspeed<
+1800 1980 30.0
+leftcornerspeed<
+1981 2010 26.0
+rightcornerspeed<
+1800 2010 25.0
+
+lookahead<
+2010 2150 20.0
+cornerspeed slow<
+2060 2140 15.5
+cornerspeed<
+2060 2140 16.5
+leftcornerspeed<
+2060 2120 26.0
+leftcornerspeed<
+2120 2220 30.0
+rightcornerspeed<
+2000 2220 26.0
+
+righttransitionincrement<
+100 290 0.06
+lefttransitionincrement<
+360 415 0.08
+righttransitionincrement<
+490 555 0.08
+righttransitionincrement<
+630 690 0.03
+righttransitionincrement<
+970 1040 0.04
+lefttransitionincrement<
+1450 1680 0.05
+righttransitionincrement<
+1570 1680 0.03
+transitionincrement<
+1240 1690 0.08
+transitionincrement<
+1780 2080 0.12
+transitionincrement<
+2081 3000 0.08
+
