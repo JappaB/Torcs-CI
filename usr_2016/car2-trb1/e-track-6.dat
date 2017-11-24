@@ -1,0 +1,137 @@
+rl right margin<
+90 120 1.0
+rl right margin<
+180 200 0.1
+rl left margin<
+210 245 0.6
+rl right margin<
+250 280 0.9
+rl left margin<
+300 330 0.6
+rl left margin<
+330 390 1.0
+left margin<
+330 390 2.0
+rl right margin<
+330 350 -1.2
+right margin<
+325 360 1.5
+rl left margin<
+570 640 -0.2
+rl right margin<
+640 660 0.2
+rl left margin<
+700 720 0.4
+rl left margin<
+1040 1105 -0.2
+rl right margin<
+1050 1140 0.1
+right margin<
+1050 1140 1.5
+rl right margin<
+1480 1526 6.0
+rl left margin<
+1480 1540 0.6
+left margin<
+1480 1560 2.0
+left margin<
+1580 1615 1.0
+
+racelinecurve<
+274 385 0.15
+racelinecurve<
+680 3000 0.16
+
+brakedelay<
+150 205 24
+rightcornerspeed<
+80 130 33
+rightcornerspeed<
+150 205 18
+leftcornerspeed<
+150 205 14.5
+cornerspeed<
+150 205 22
+cornerspeed<
+206 265 20
+overtake<
+206 320 0.2
+
+brakedelay<
+295 365 28
+cornerspeed slow<
+295 335 20.0
+cornerspeed<
+295 335 21.5
+cornerspeed slow<
+336 365 21.0
+cornerspeed<
+336 365 22.5
+leftcornerspeed<
+295 365 15.5
+rightcornerspeed<
+295 365 16.5
+
+brakedelay<
+590 670 24
+cornerspeed<
+590 670 21.5
+rightcornerspeed<
+590 660 30.0
+rightcornerspeed<
+661 693 40.0
+
+leftcornerspeed<
+690 719 26
+leftcornerspeed<
+720 740 40
+cornerspeed<
+690 720 21
+cornerspeed<
+721 750 23
+
+brakedelay<
+1060 1150 24
+cornerspeed slow<
+1060 1150 19
+cornerspeed<
+1060 1150 19.3
+leftcornerspeed<
+1060 1150 15.0
+rightcornerspeed<
+800 1059 30.0
+rightcornerspeed<
+1060 1150 17.0
+
+rightcornerspeed<
+1180 1220 40.0
+rightcornerspeed<
+1221 1270 30.0
+leftcornerspeed<
+1200 1270 40.0
+leftcornerspeed<
+1400 1470 22.0
+leftcornerspeed<
+1471 1520 25.0
+leftcornerspeed<
+1521 1560 23.0
+rightcornerspeed<
+1400 1490 40.0
+rightcornerspeed<
+1491 1520 32.0
+rightcornerspeed<
+1521 1585 33.0
+
+brakedelay<
+1440 1519 26
+cornerspeed slow<
+1440 1519 24.5
+cornerspeed<
+1440 1519 25.5
+cornerspeed slow<
+1520 1560 22.7
+cornerspeed<
+1520 1560 23.0
+overtake<
+1560 1607 0.1
+

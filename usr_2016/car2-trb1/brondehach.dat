@@ -1,0 +1,207 @@
+left margin<
+0 125 1.0
+rl right margin<
+130 160 0.8
+rl left margin<
+190 240 -0.7
+rl left margin<
+350 400 -0.4
+rl left margin<
+450 490 1.2
+right margin<
+325 349 1.0
+right margin<
+350 370 1.5
+rl right margin<
+325 380 -1.0
+rl right margin<
+490 520 -0.2
+rl left margin<
+640 685 0.5
+right margin<
+760 825 0.5
+right margin<
+1230 1255 1.0
+rl right margin<
+1230 1255 0.0
+rl right margin<
+1275 1315 3.0
+left margin<
+1445 1480 2
+right margin<
+1445 1480 1.5
+rl right margin<
+1511 1570 0.5
+rl left margin<
+1560 1600 0.6
+rl right margin<
+1600 1635 0.1
+right margin<
+1610 1640 0.8
+rl right margin<
+1800 1834 0.1
+rl right margin<
+1835 1852 -0.7
+rl left margin<
+1820 1890 -0.5
+left margin<
+1820 1930 1.0
+xleft margin<
+1820 1950 1.0
+
+brakedelay<
+0 165 34.0
+leftcornerspeed<
+100 165 29
+rightcornerspeed<
+100 165 34
+cornerspeed slow<
+100 165 21.5
+cornerspeed<
+100 165 23.5
+lookahead right<
+155 182 30
+
+avoidbrakedelay<
+250 350 24.0
+brakedelay<
+250 350 26.0
+leftcornerspeed<
+290 325 13.5
+leftcornerspeed<
+326 380 32.0
+rightcornerspeed<
+290 325 12.0
+rightcornerspeed<
+326 355 41.0
+cornerspeed<
+290 355 18.5
+overtake<
+1 350 1.00
+overtake<
+400 670 0.01
+speed diff for overtake<
+360 670 3.0
+
+cornerspeed slow<
+440 510 22
+cornerspeed<
+440 510 23.5
+leftcornerspeed<
+440 510 16.5
+rightcornerspeed<
+440 510 19
+lookahead left<
+477 500 30
+
+brakedelay<
+550 700 32.0
+lookahead<
+620 700 16.0
+cornerspeed slow<
+620 700 21
+cornerspeed<
+620 700 22.5
+leftcornerspeed<
+620 700 20
+rightcornerspeed<
+620 660 18
+rightcornerspeed<
+661 700 22
+lookahead left<
+685 695 30
+overtake<
+680 1000 1.1
+
+
+brakedelay<
+900 1120 34.0
+lookahead<
+1020 1120 16.0
+cornerspeed<
+1020 1120 23.0
+leftcornerspeed<
+1020 1120 20.0
+rightcornerspeed<
+1020 1120 22.0
+lookahead right<
+1080 1135 30
+
+leftcornerspeed<
+1200 1270 18.0
+rightcornerspeed<
+1200 1270 17.0
+rightcornerspeed<
+1271 1350 36.0
+cornerspeed slow<
+1200 1270 21.5
+cornerspeed<
+1200 1270 22.7
+leftcornerspeed<
+1280 1380 30
+lookahead right<
+1242 1268 30
+speed diff for overtake<
+1160 1609 4.0
+speed diff for overtake<
+1610 1630 20.0
+speed diff for overtake<
+1631 1800 4.0
+
+leftcornerspeed<
+1400 1460 20.0
+rightcornerspeed<
+1440 1460 13
+cornerspeed<
+1280 1540 22
+lookahead right<
+1455 1490 30
+lookahead left<
+1435 1485 30
+brake coefficient<
+1425 1480 2.8
+right overtake<
+1160 1800 0.01
+overtake<
+1160 1800 0.01
+
+brakedelay<
+1500 1590 30
+cornerspeed<
+1550 1590 23
+cornerspeed<
+1591 1625 21.2
+cornerspeed slow<
+1591 1625 20.5
+leftcornerspeed<
+1551 1625 25
+rightcornerspeed<
+1551 1625 24
+lookahead left<
+1605 1615 30
+
+brakedelay<
+1650 2000 33.0
+lookahead<
+1750 2000 19.0
+racelinecurve<
+1750 2000 0.155
+cornerspeed slow<
+1770 1830 30
+cornerspeed<
+1770 1830 32
+cornerspeed slow<
+1831 1845 25
+cornerspeed<
+1831 1845 26
+cornerspeed slow<
+1846 1880 27
+cornerspeed<
+1846 1880 28
+rightcornerspeed<
+1770 1850 35
+leftcornerspeed<
+1770 1850 31
+
+lookahead left<
+0 3000 18

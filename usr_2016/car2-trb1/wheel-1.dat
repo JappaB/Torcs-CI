@@ -1,0 +1,214 @@
+right margin<
+0 70 0.8
+rl left margin<
+220 270 -0.5
+left margin<
+220 270 0.8
+rl right margin<
+280 335 10.0
+rl right margin<
+336 405 8.0
+rl right margin<
+260 395 1.0
+rl left margin<
+420 480 0.0
+left margin<
+420 480 2.0
+rl right margin<
+620 650 2.0
+left margin<
+680 810 0.8
+left margin<
+811 870 3.0
+rl left margin<
+811 870 0.0
+right margin<
+530 610 2.0
+racelinecurve<
+710 900 0.124
+left margin<
+970 1150 2.0
+rl left margin<
+970 1150 0.0
+right margin<
+715 800 3.0
+right margin<
+810 850 0.6
+rl left margin<
+1290 1310 0.5
+rl right margin<
+1300 1360 -0.5
+rl left margin<
+1340 1370 1.5
+left margin<
+1340 1370 1.09
+right margin<
+1475 1610 1.5
+rl right margin<
+1475 1575 0.0
+rl right margin<
+1575 1610 1.7
+rl left margin<
+1520 1590 1.5
+rl right margin<
+1665 1685 -1.1
+rl left margin<
+1680 1690 4.0
+rl left margin<
+1691 1705 0.6
+racelinecurve<
+1601 1800 0.22
+right margin<
+1710 1800 0.5
+rl right margin<
+1710 1800 0.8
+
+RGT=1 LFT=2...
+preferred side<
+0 510 1
+800 1360 1
+
+lookahead<
+140 250 18.0
+avoidbrakedelay<
+170 250 25.0
+brakedelay<
+170 250 25.0
+rightcornerspeed<
+170 250 24.0
+leftcornerspeed<
+170 250 25
+cornerspeed<
+170 250 22.0
+
+brakedelay<
+380 514 27.0
+cornerspeed slow<
+380 514 23.5
+leftcornerspeed<
+380 445 28.0
+leftcornerspeed<
+460 465 29.5
+leftcornerspeed<
+466 490 42.0
+leftcornerspeed<
+491 530 31.0
+leftcornerspeed<
+531 619 29.0
+rightcornerspeed<
+380 475 31.0
+rightcornerspeed<
+476 524 40.0
+rightcornerspeed<
+525 630 23.0
+cornerspeed<
+380 514 24.0
+lookahead<
+380 514 16.0
+cornerspeed<
+515 560 23.5
+lookahead<
+515 560 16.0
+
+brakedelay<
+620 675 26.0
+rightcornerspeed<
+631 695 19.0
+rightcornerspeed<
+820 860 34.0
+leftcornerspeed<
+620 665 22.0
+leftcornerspeed<
+666 695 20.0
+leftcornerspeed<
+696 750 25.0
+cornerspeed slow<
+620 655 24.5
+cornerspeed<
+620 655 25.5
+cornerspeed slow<
+655 675 21.0
+cornerspeed<
+655 675 23.0
+cornerspeed<
+676 720 24.5
+lookahead<
+620 720 17.0
+
+outside steering dampener<
+760 845 -3000
+leftcornerspeed<
+810 835 16.0
+rightcornerspeed<
+1000 1100 25.0
+leftcornerspeed<
+950 1100 20.5
+cornerspeed<
+950 1100 22.0
+lookahead<
+950 1100 15.0
+overtake<
+800 845 0.05
+
+avoidbrakedelay<
+1200 1299 28.0
+brakedelay<
+1220 1299 24.0
+cornerspeed slow<
+1220 1299 23.5
+cornerspeed<
+1220 1299 25.0
+lookahead<
+1220 1299 16.0
+cornerspeed slow<
+1300 1345 21.7
+cornerspeed<
+1300 1345 22.3
+rightcornerspeed<
+1250 1345 25.0
+leftcornerspeed<
+1250 1300 22.0
+leftcornerspeed<
+1301 1345 24.0
+
+brakedelay<
+1430 1535 26.0
+rightcornerspeed<
+1430 1565 20.0
+rightcornerspeed<
+1566 1605 18.0
+leftcornerspeed<
+1430 1535 22.0
+leftcornerspeed<
+1536 1560 21.0
+leftcornerspeed<
+1561 1650 19.0
+cornerspeed<
+1430 1535 24.2
+cornerspeed slow<
+1536 1600 21.0
+cornerspeed<
+1536 1600 22.1
+lookahead<
+1536 1600 15.0
+cornerspeed<
+1601 1650 24.5
+lookahead<
+1601 1650 16.0
+
+brakedelay<
+1640 1690 30.0
+cornerspeed slow<
+1651 1690 20.0
+cornerspeed<
+1651 1690 21.0
+rightcornerspeed<
+1651 1685 15.0
+rightcornerspeed<
+1686 1800 25.0
+leftcornerspeed<
+1651 1685 15.0
+leftcornerspeed<
+1686 1800 22.0
+overtake<
+1620 1660 0.1

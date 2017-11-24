@@ -1,0 +1,10 @@
+;
+; usr_2016.def
+;
+
+LIBRARY usr_2016
+
+SECTIONS .data READ WRITE
+
+EXPORTS
+	usr_2016

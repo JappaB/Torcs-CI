@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    file                 : hymie_2016.xml
+    created              : vendredi 21 novembre 2008, 02:20:24 (UTC+0100)
+    copyleft             : (C) 2006 MLuc
+    email                : mluc@cern91.net
+    version              : $Id: bt.xml,v 1.2 2003/08/13 00:04:14 berniw Exp $
+    Autor                : Bernhard Wymann <berniw@bluewin.ch>
+-->
+
+<!-- ##########################################################
+         This new robot is a Berniw's Tutorial (bt_2004) 
+    ########################################################## -->
+<!--    This program is free software; you can redistribute it and/or modify  -->
+<!--    it under the terms of the GNU General Public License as published by  -->
+<!--    the Free Software Foundation; either version 2 of the License, or     -->
+<!--    (at your option) any later version.                                   -->
+
+<!DOCTYPE params SYSTEM "../../libs/tgf/params.dtd">
+
+<params name="hymie_2016" type="robotdef">
+  <section name="Robots">
+    <section name="index">
+
+	  <section name="0">
+		  <attstr name="name" val="Giskard"/>
+		  <attstr name="team" val="USR Racing"/>
+		  <attstr name="desc" val="Giskard"/>
+		  <attstr name="author" val="Andrew Sumner"/>
+		  <attstr name="car name" val="car2-trb1"/>
+		  <attnum name="race number" val="77"/>
+		  <attnum name="red" val="0.7"/>
+		  <attnum name="green" val="0.5"/>
+		  <attnum name="blue" val="0.2"/>
+	<attstr name="skill level" val="semi-pro"/>
+	  </section>
+	  
+	  <section name="1">
+		  <attstr name="name" val="Daneel"/>
+		  <attstr name="team" val="USR Racing"/>
+		  <attstr name="desc" val="Daneel"/>
+		  <attstr name="author" val="Andrew Sumner"/>
+		  <attstr name="car name" val="car2-trb1"/>
+		  <attnum name="race number" val="78"/>
+		  <attnum name="red" val="0.7"/>
+		  <attnum name="green" val="0.5"/>
+		  <attnum name="blue" val="0.2"/>
+	<attstr name="skill level" val="semi-pro"/>
+	  </section>
+
+    </section>
+  </section>
+</params>

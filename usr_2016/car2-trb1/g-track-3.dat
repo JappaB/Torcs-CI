@@ -1,0 +1,104 @@
+rl right margin<
+10 40 -1.3
+rl right margin<
+120 140 2.0
+rl left margin<
+530 570 -2.5
+rl left margin<
+571 590 4.0
+left margin<
+696 740 -1.6
+rl right margin<
+740 760 1.5
+rl left margin<
+750 768 4.0
+rl left margin<
+769 850 -4.0
+rl left margin<
+851 880 0.5
+left margin<
+760 870 1.5
+rl right margin<
+790 850 3.0
+rl left margin<
+850 900 -1.8
+lookahead<
+850 1000 18
+rl right margin<
+980 1025 -1.0
+
+cornerspeed<
+0 40 22
+
+cornerspeed slow<
+70 120 20.0
+cornerspeed<
+70 120 20.6
+leftcornerspeed<
+70 120 18.0
+rightcornerspeed<
+70 120 16.0
+rightcornerspeed<
+121 169 14.0
+
+rightcornerspeed<
+170 200 13.0
+leftcornerspeed<
+170 200 15.0
+
+cornerspeed slow<
+230 275 23.0
+cornerspeed<
+230 275 24.0
+leftcornerspeed<
+230 275 18.0
+rightcornerspeed<
+230 275 16.0
+
+cornerspeed<
+300 360 21.5
+
+rightcornerspeed<
+300 369 16.0
+rightcornerspeed<
+370 510 24.0
+
+cornerspeed<
+470 550 24
+leftcornerspeed<
+470 510 24
+leftcornerspeed<
+511 560 18
+rightcornerspeed<
+511 560 16
+
+cornerspeed<
+551 600 27
+
+cornerspeed<
+620 670 24.0
+leftcornerspeed<
+620 680 32.0
+rightcornerspeed<
+620 680 28.0
+rightcornerspeed<
+681 735 30.0
+
+cornerspeed<
+690 735 21
+
+cornerspeed<
+736 780 20.5
+rightcornerspeed<
+736 780 20.5
+
+leftcornerspeed<
+790 929 30
+rightcornerspeed<
+790 929 30
+
+cornerspeed<
+930 1020 22
+leftcornerspeed<
+930 1020 20
+

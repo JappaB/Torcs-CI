@@ -1,0 +1,243 @@
+rl left margin<
+120 160 -2.0
+rl left margin<
+160 220 2.0
+rl right margin<
+140 200 1.6
+rl right margin<
+220 250 -0.5
+right margin<
+410 440 0.5
+left margin<
+480 545 0.65
+rl left margin<
+480 545 0.65
+left margin<
+546 670 2.0
+rl left margin<
+546 670 3.5
+rl right margin<
+625 665 -0.9
+left margin<
+680 740 0.5
+rl left margin<
+740 940 -3
+rl right margin<
+995 1040 -0.4
+left margin<
+1030 1075 1.0
+left margin<
+1075 1120 0.5
+left margin<
+1160 1320 2.0
+rl left margin<
+1160 1269 0.0
+rl right margin< car7
+1065 1095 0.25
+rl right margin<
+1065 1095 0.27
+right margin<
+1065 1095 0.5
+left margin<
+1280 1320 1.1
+left margin<
+1800 1870 0.5
+right margin<
+1050 1100 0.0
+right margin<
+1215 1253 1.2
+rl right margin<
+1254 1265 1.7
+rl right margin<
+1266 1325 2.3
+rl left margin<
+1270 1325 1.5
+right margin<
+1254 1295 3.5
+right margin<
+1291 1315 1.5
+rl right margin<
+1410 1680 0.5
+rl left margin<
+1720 1780 -0.2
+rl left margin<   qualifying only
+1810 1900 0.00
+rl left margin<
+1810 1825 2.50
+rl left margin<
+1836 1950 -1.7
+rl right margin<
+1865 1900 -0.2
+right margin<
+1788 1900 2.0
+rl right margin<
+2515 2530 0.0
+right margin<
+2515 2530 0.3
+xrl left margin<
+2545 2570 0.0
+left margin<
+2545 2580 0.5
+rl right margin<
+2590 2780 -1.5
+left margin<
+2655 2890 -1.5
+left margin<
+0 120 -2.5
+
+outside steering dampener<
+100 275 0.05
+leftcornerspeed<
+114 230 20.5
+leftcornerspeed<
+230 250 17.0
+rightcornerspeed<
+114 225 33.0
+rightcornerspeed<
+225 235 9.0
+cornerspeed<
+114 200 27.0
+cornerspeed slow<
+200 250 23.0
+cornerspeed<
+200 250 23.5
+avoidbrakedelay<
+100 240 21.0
+
+rightcornerspeed<
+360 405 17.5
+
+cornerspeed<
+415 500 22.0
+leftcornerspeed<
+415 450 17.0
+rightcornerspeed<
+415 450 18.5
+
+cornerspeed<
+520 579 22.5
+
+outside steering dampener<
+460 570 0.05
+outside steering dampener<
+670 800 0.05
+rightcornerspeed<
+480 555 14.0
+rightcornerspeed<
+600 665 26.0
+leftcornerspeed<
+550 665 17.0
+cornerspeed<
+580 660 22.0
+
+Xoutside steering dampener<
+1060 1120 0.15
+rightcornerspeed<
+950 1080 21.0
+leftcornerspeed<
+950 1100 16.0
+cornerspeed<
+980 1040 29.0
+
+cornerspeed<
+1050 1100 21.5
+
+Xoutside steering dampener<
+1100 1290 0.15
+brakedelay<
+1100 1290 19.0
+avoidbrakedelay<
+1030 1100 19.0
+avoidbrakedelay<
+1101 1300 21.0
+rightcornerspeed<
+1235 1290 12.0
+rightcornerspeed<
+1280 1316 19.5
+leftcornerspeed<
+1160 1300 14.0
+leftcornerspeed<
+1301 1340 90.0
+cornerspeed slow<
+1280 1310 18.0
+cornerspeed mid<
+1280 1310 18.5
+cornerspeed<
+1280 1310 19.2
+cornerspeed slow<
+1311 1335 37.0
+cornerspeed mid<
+1311 1335 37.5
+cornerspeed<
+1311 1335 38.2
+Xoutside steering dampener<
+1290 1380 0.15
+
+spoon a
+outside steering dampener<
+1700 1850 0.05
+transitionincrement<
+1700 1850 0.10
+leftcornerspeed<
+1700 1844 26.0
+rightcornerspeed<
+1700 1900 17.0
+cornerspeed slow<
+1700 1820 22.0
+cornerspeed mid<
+1700 1820 22.8
+cornerspeed<
+1700 1820 23.0
+
+spoon b
+cornerspeed slow<
+1820 1900 22.0
+cornerspeed<
+1820 1900 22.5
+leftcornerspeed<
+1845 1900 40.0
+
+avoidbrakedelay<
+2500 2750 21.0
+leftcornerspeed<
+2500 2750 23.0
+rightcornerspeed<
+2500 2750 27.0
+outside steering dampener<
+2580 3200 0.08
+
+RGT=1 LFT=2...
+preferred side<
+0 250 1
+preferred side<
+870 1225 1
+preferred side<
+1226 1310 2
+preferred side<
+1308 1410 1
+preferred side<
+2400 2569 2
+preferred side<
+2560 3000 1
+transitionincrement<
+2500 2570 0.25
+
+speed diff for overtake<
+270 405 3.0
+speed diff for overtake<
+475 565 6.0
+right overtake<
+690 850 0.05
+speed diff for overtake<
+670 1180 4.0
+left overtake<
+1690 1730 0.05
+speed diff for overtake<
+1550 1850 6.0
+speed diff for overtake<
+2325 2730 5.0
+speed diff for overtake<
+2550 2620 6.0
+
+stay inside<
+60 250 1

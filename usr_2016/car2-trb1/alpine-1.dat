@@ -1,0 +1,154 @@
+right margin<
+150 175 0.1
+rl left margin<
+680 725 0.3
+left margin<
+680 725 2.5
+left margin<
+1285 1305 0.2
+rl left margin<
+1850 1890 1.0
+rl right margin<
+1900 1925 -1.0
+rl left margin<
+2210 2230 -1.0
+rl right margin<
+2150 2200 1.0
+right margin<
+2150 2305 0.4
+
+Climb Turn 1
+brakedelay<
+1 170 37.0
+leftcornerspeed<
+120 303 17.0 
+rightcornerspeed<
+120 165 17.0 
+cornerspeed<
+120 165 21.0 
+cornerspeed<
+166 200 20.5 
+leftcornerspeed<
+270 310 34.0 
+
+Climb Turn 2
+brakedelay<
+315 353 33.0
+leftcornerspeed<
+325 353 16.0 
+cornerspeed<
+325 353 18.5
+cornerspeed<
+354 370 20.0
+
+Climb Turn 3
+leftcornerspeed<
+510 534 16.0 
+rightcornerspeed<
+510 534 14.0 
+cornerspeed<
+510 534 20.0
+cornerspeed<
+535 560 21.0
+
+Climb Turn 4
+leftcornerspeed<
+695 712 16.0 
+rightcornerspeed<
+695 712 16.0 
+cornerspeed<
+695 712 21.5
+cornerspeed slow<
+713 735 17.5
+cornerspeed<
+713 735 19.0
+
+Climb Hairpin
+leftcornerspeed<
+870 912 16.0 
+rightcornerspeed<
+870 912 16.0 
+cornerspeed slow<
+870 912 19.5
+cornerspeed<
+870 912 20.0
+cornerspeed<
+913 935 21.5
+outside steering dampener<
+890 920 -100
+
+Ridge Turn 1
+leftcornerspeed<
+940 1040 21.0 
+rightcornerspeed<
+940 959 21.0 
+cornerspeed<
+1210 1248 25.0
+
+leftcornerspeed<
+1040 1105 33.0 
+leftcornerspeed<
+1106 1180 21.0 
+leftcornerspeed<
+1181 1200 25.0 
+leftcornerspeed<
+1201 1280 21.0 
+leftcornerspeed<
+1281 1320 27.0 
+rightcornerspeed<
+960 1000 33.0 
+rightcornerspeed<
+1150 1180 30.0 
+rightcornerspeed<
+1215 1235 33.0 
+rightcornerspeed<
+1250 1280 33.0 
+rightcornerspeed<
+1375 1400 26.0 
+
+rightcornerspeed<
+1310 1335 33.0 
+
+Ridge Esses
+cornerspeed<
+1249 1277 20.0
+cornerspeed<
+1278 1301 20.0
+cornerspeed<
+1302 1325 20.0
+
+overtake<
+1270 1380 0.3
+
+brakedelay<
+1800 2225 70.0
+
+Under Bridge
+rightcornerspeed<
+1700 1950 28.0 
+cornerspeed<
+1870 1915 22.0
+cornerspeed<
+1916 1945 20.0
+
+Last Turn
+left overtake<
+1920 2277 0.5
+leftcornerspeed<
+1700 2100 26.0 
+leftcornerspeed<
+2101 2240 32.0 
+leftcornerspeed<
+2241 2300 28.0 
+rightcornerspeed<
+1951 2250 24.0 
+rightcornerspeed<
+2551 2300 26.0 
+cornerspeed<
+2190 2230 19.0
+cornerspeed<
+2231 2240 25.0
+cornerspeed<
+2241 2274 38.0
+cornerspeed<
+2274 2300 25.0
