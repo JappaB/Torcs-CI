@@ -35,7 +35,7 @@ class State(Value):
 
     Attributes:
         sensor_dict: Dictionary of sensor key value pairs in string form.
-        angle: Angle between car direction and track axis, [-180;180], deg.
+        angle: Angle between car direction and track axis in radians
         current_lap_time: Time spent in current lap, [0;inf[, s.
         damage: Damage points, 0 means no damage, [0;inf[, points.
         distance_from_start:
@@ -61,14 +61,13 @@ class State(Value):
             See ``focused_distances_from_edge_valid``.
         distance_from_center: Normalized distance from track center,
             -1: right edge, 0: center, 1: left edge, [0;1].
-        wheel_velocities: Four wheels' velocity, [0;inf[, deg/s.
+        wheel_velocities: Four wheels' velocity, [0;inf[, rad/s.
         z: Distance of car center of mass to track surface, ]-inf;inf[, m.
     """
 
     def __init__(self, sensor_dict):
         """Creates decoded car state from sensor value dictionary."""
-        self.angle = self.float_value(sensor_dict, 'angle') * \
-            DEGREE_PER_RADIANS
+        self.angle = self.float_value(sensor_dict, 'angle')
         self.current_lap_time = self.float_value(sensor_dict, 'curLapTime')
         self.damage = self.int_value(sensor_dict, 'damage')
         self.distance_from_start = self.float_value(
@@ -88,7 +87,7 @@ class State(Value):
         self.distances_from_edge = self.floats_value(sensor_dict, 'track')
         self.distance_from_center = self.float_value(sensor_dict, 'trackPos')
         self.wheel_velocities = tuple(
-            v * DEGREE_PER_RADIANS for v in self.floats_value(
+            v for v in self.floats_value(
                 sensor_dict,
                 'wheelSpinVel'
             )
