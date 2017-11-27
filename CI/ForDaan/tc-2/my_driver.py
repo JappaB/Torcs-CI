@@ -40,19 +40,47 @@ def autoTransmission (gear, rpm, rearSlip):
 
 	return gear
 
+# Neural Network Model
+class Net(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super(Net, self).__init__()
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.fc2 = nn.Linear(hidden_size, hidden_size)
+        self.fc3 = nn.Linear(hidden_size, output_size)
+    
+    def forward(self, x):
+        h = F.tanh(self.fc1(x))
+        h = F.tanh(self.fc2(h))
+        h = F.tanh(self.fc3(h))
+        return h
+
+
+
 def load_model():
-	path = os.path.join('models','trainedmodel_bbdata_500hidden_3out(tanh)_22in_500it_adam(hopefully_good_results)_standardmodel_nietdict')
+	#Hyper parameters
+	input_size = 72
+	hidden_size = 50
+	output_size = 3
+
+	path = os.path.join('models','simple_ff_DICT_20epochs_batch100_dict_hiden_size50_2HL_INP72_outp3_Forward_tanh_tanh_tanh.pt')
+
 	neural_net = torch.load(path)
+	neural_net = Net(input_size, hidden_size, output_size)
+	# neural_net.load_state_dict(torch.load(path))
 
 	return neural_net
 
 def state_var(carstate):
+# 								speedX	speedY	speedZ	trackPos	z	wheelSpinVel01	wheelSpinVel02	wheelSpinVel03	wheelSpinVel04	track00	track18	oppos00	oppos35
 
 	# Extract input_data
-	curr_state = np.asarray([carstate.speed_x, carstate.distance_from_center, carstate.angle]+list(carstate.distances_from_edge))
+	curr_state = np.asarray([carstate.angle, carstate.current_lap_time, carstate.distance_from_start, carstate.distance_raced,carstate.gear,carstate.last_lap_time,carstate.race_position,carstate.rpm,carstate.speed_x , carstate.speed_y, carstate.speed_z ,carstate.distance_from_center, carstate.z]+list(carstate.wheel_velocities)+list(carstate.distances_from_edge)+list(carstate.opponents))
 	# Turn  input state into Torch variable
 	inp_data = Variable(torch.from_numpy(curr_state).float())
 	return inp_data
+
+
+
 
 class MyDriver(Driver):
 
@@ -157,20 +185,24 @@ class MyDriver(Driver):
 		lot of inputs. But it will get the car (if not disturbed by other
 		drivers) successfully driven along the race track.
 		"""
-		#command = Command()
 		command = self.cruise(carstate)
 
 
-		# model_outp = self.neural_net(state_var(carstate))
+		model_outp = self.neural_net(state_var(carstate))
 		# print('output0',float(model_outp.data[0]))
-
-		# # command.accelerator = model_outp.data[0]
-		# # command.brake =model_outp.data[1]
-		# # command.steering = model_outp.data[2]
+		command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
+		command.accelerator = 1
+		command.brake =model_outp.data[1]
+		command.steering = model_outp.data[2]
 		# self.steer(carstate, 0.0, command)
-		# # v_x = 80
+		# v_x = 80
 		# ACC_LATERAL_MAX = 6400 * 5
 		# v_x = min(80, math.sqrt(ACC_LATERAL_MAX / abs(command.steering)))
+
+		print('steering command',command.accelerator)
+		print('accelerator command',command.accelerator)
+		print('brake command', model_outp.data[1])
+
 
 		# print('steering command',command.steering)
 		# print('accelerator command', model_outp.data[0])
