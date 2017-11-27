@@ -31,9 +31,13 @@ def autoTransmission (gear, rpm, rearSlip):
 	downshiftRpm = 3500
 	maximumSlip = 0.1
 	if gear < 6 and rpm > upshiftRpm and rearSlip < maximumSlip:
+		#print ("gear: {}, rpm: {}, upshift!".format(gear, rpm))
 		return gear + 1
 	elif gear > 1 and rpm < downshiftRpm:
+		#print ("gear: {}, rpm: {}, downshift!".format(gear, rpm))
 		return gear - 1
+	#print ("gear: {}, rpm: {}".format(gear, rpm))
+
 	return gear
 
 def load_model():
@@ -111,7 +115,6 @@ class MyDriver(Driver):
 				self.steerToCenter(carstate.distance_from_center) + 
 				self.steerToFurthestRange(carstate.distances_from_edge))
 		command.gear = autoTransmission(carstate.gear, carstate.rpm, 0.0)
-
 		targetSpeed = 100 # kph
 		targetSpeed -= 100 * abs(command.steering)
 		targetSpeed -= (100 - np.max(carstate.distances_from_edge))/2
@@ -123,6 +126,26 @@ class MyDriver(Driver):
 		command.brake = 0.0
 		if carstate.speed_x > 10 and carstate.speed_x*2 > np.max(carstate.distances_from_edge):
 			command.brake = 0.5
+			command.accelerator = 0.0
+
+		# unstucking (WIP)
+		# isStuck = (
+		# 		carstate.distances_from_edge[0] == -1 
+		# 		or abs(carstate.distance_from_center) > 0.8)
+		# if isStuck:
+		# 	print("arg {:.2f}".format(carstate.current_lap_time))
+		# 	command.accelerator = 0.2
+		# 	command.steering = (
+		# 			self.steerToCorner(carstate.angle) + 
+		# 			self.steerToCenter(carstate.distance_from_center))
+		# 	if carstate.speed_x < 0.05:
+		# 		if int(carstate.current_lap_time/5)%2 ==0:
+		# 			command.gear = 1
+		# 		else:
+		# 			command.gear = -1
+		# 			command.steering *= -1
+		# elif carstate.gear < 0:
+		# 	command.gear = 1
 		return command
 
 
@@ -134,10 +157,8 @@ class MyDriver(Driver):
 		lot of inputs. But it will get the car (if not disturbed by other
 		drivers) successfully driven along the race track.
 		"""
-		command = Command()
+		#command = Command()
 		command = self.cruise(carstate)
-
-
 
 
 		# model_outp = self.neural_net(state_var(carstate))

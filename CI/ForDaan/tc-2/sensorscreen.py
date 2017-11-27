@@ -170,7 +170,7 @@ class SensorScreen:
 					self.carCenter.y+distance)
 
 	def update (self, carState, rangeAngles):
-		self.trackAngleCompensation = carState.angle * math.pi/180.0
+		self.trackAngleCompensation = carState.angle
 
 		# keep center of track at constant point on screen
 		# pray track is 11m wide
