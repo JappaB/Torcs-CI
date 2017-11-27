@@ -12,19 +12,46 @@ import torch.optim as optim
 
 
 
+# Neural Network Model
+class Net(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super(Net, self).__init__()
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.fc2 = nn.Linear(hidden_size, hidden_size)
+        self.fc3 = nn.Linear(hidden_size, output_size)
+    
+    def forward(self, x):
+        h = F.tanh(self.fc1(x))
+        h = F.tanh(self.fc2(h))
+        h = F.tanh(self.fc3(h))
+        return h
+
+
+
 def load_model():
-	path = os.path.join('models','trainedmodel_bbdata_500hidden_3out(tanh)_22in_500it_adam(hopefully_good_results)_standardmodel_nietdict')
+	#Hyper parameters
+	input_size = 72
+	hidden_size = 50
+	output_size = 3
+
+	path = os.path.join('models','simple_ff_model.pt')
+
 	neural_net = torch.load(path)
+	# neural_net = Net(input_size, hidden_size, output_size)
+	# neural_net.load_state_dict(torch.load(path))
 
 	return neural_net
 
 def state_var(carstate):
 
 	# Extract input_data
-	curr_state = np.asarray([carstate.speed_x, carstate.distance_from_center, carstate.angle]+list(carstate.distances_from_edge))
+	curr_state = np.asarray([carstate.speed_x, carstate.distance_from_center, carstate.angle]+list(carstate.distances_from_edge)+list(carstate.opponents))
 	# Turn  input state into Torch variable
 	inp_data = Variable(torch.from_numpy(curr_state).float())
 	return inp_data
+
+
+
 
 class MyDriver(Driver):
 	# Override the `drive` method to create your own driver
@@ -50,9 +77,6 @@ class MyDriver(Driver):
         """
 
 		command = Command()
-
-
-
 
 
 		model_outp = self.neural_net(state_var(carstate))
