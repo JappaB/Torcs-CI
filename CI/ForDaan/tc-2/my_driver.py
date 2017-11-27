@@ -165,7 +165,7 @@ class MyDriver(Driver):
 		command = self.cruise(carstate)
 
 
-<<<<<<< HEAD
+
 		model_outp = self.neural_net(state_var(carstate))
 		print('output0',float(model_outp.data[0]))
 
@@ -180,20 +180,7 @@ class MyDriver(Driver):
 		print('steering command',command.steering)
 		print('accelerator command', model_outp.data[0])
 		print('brake command', model_outp.data[1])
-=======
 
-
-		# model_outp = self.neural_net(state_var(carstate))
-		# print('output0',float(model_outp.data[0]))
-
-		# # command.accelerator = model_outp.data[0]
-		# # command.brake =model_outp.data[1]
-		# # command.steering = model_outp.data[2]
-		# self.steer(carstate, 0.0, command)
-		# # v_x = 80
-		# ACC_LATERAL_MAX = 6400 * 5
-		# v_x = min(80, math.sqrt(ACC_LATERAL_MAX / abs(command.steering)))
->>>>>>> 7bd491540b1fdafac8669fe43d30c1e3cd4250c8
 
 		# print('steering command',command.steering)
 		# print('accelerator command', model_outp.data[0])
