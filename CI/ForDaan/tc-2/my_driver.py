@@ -58,14 +58,14 @@ class Net(nn.Module):
 
 def load_model():
 	#Hyper parameters
-	input_size = 72
+	input_size = 61
 	hidden_size = 50
-	output_size = 3
+	output_size = 2
 
-	path = os.path.join('models','simple_ff_DICT_20epochs_batch100_dict_hiden_size50_2HL_INP72_outp3_Forward_tanh_tanh_tanh.pt')
+	path = os.path.join('models','simple_ff_model_5epochs_batch100_dict_hiden_size50_2HL_INP72_outp3_Forward_tanh_tanh_tanh_onlyrelevantdata.pt')
 
 	neural_net = torch.load(path)
-	neural_net = Net(input_size, hidden_size, output_size)
+	# neural_net = Net(input_size, hidden_size, output_size)
 	# neural_net.load_state_dict(torch.load(path))
 
 	return neural_net
@@ -186,15 +186,21 @@ class MyDriver(Driver):
 		drivers) successfully driven along the race track.
 		"""
 
-		command = self.cruise(carstate)
-
+		# command = self.cruise(carstate)
+		command =Command()
 
 		model_outp = self.neural_net(state_var(carstate))
 		# print('output0',float(model_outp.data[0]))
 		# command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
-		# command.accelerator = 1
-		# command.brake =model_outp.data[1]
-		# command.steering = model_outp.data[2]
+		print('accel/brake',model_outp.data[0])
+
+		if model_outp.data[0] >= 0:
+			command.accelerator = model_outp.data[0]
+
+		if model_outp.data[0]<0:
+			command.brake = model_outp.data[0]
+
+		command.steering = model_outp.data[1]
 		# self.steer(carstate, 0.0, command)
 		# v_x = 80
 		# ACC_LATERAL_MAX = 6400 * 5
