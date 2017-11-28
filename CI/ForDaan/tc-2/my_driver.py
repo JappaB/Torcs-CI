@@ -163,16 +163,16 @@ class MyDriver(Driver):
 		drivers) successfully driven along the race track.
 		"""
 		command = Command()
-		# command = self.cruise(carstate)
+		command = self.cruise(carstate)
 
 
 
 		model_outp = self.neural_net(state_var(carstate))
 		# print('output0',float(model_outp.data[0]))
-		command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
-		command.accelerator = 1
-		command.brake =model_outp.data[1]
-		command.steering = model_outp.data[2]
+		# command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
+		# command.accelerator = 1
+		# command.brake =model_outp.data[1]
+		# command.steering = model_outp.data[2]
 		# self.steer(carstate, 0.0, command)
 		# v_x = 80
 		# ACC_LATERAL_MAX = 6400 * 5
