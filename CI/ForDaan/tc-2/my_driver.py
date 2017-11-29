@@ -40,6 +40,7 @@ def autoTransmission (gear, rpm, rearSlip):
 
 	return gear
 
+
 # Neural Network Model
 class Net(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
@@ -49,24 +50,23 @@ class Net(nn.Module):
         self.fc3 = nn.Linear(hidden_size, output_size)
     
     def forward(self, x):
-        h = F.tanh(self.fc1(x))
-        h = F.tanh(self.fc2(h))
-        h = F.tanh(self.fc3(h))
+        h = F.sigmoid(self.fc1(x))
+        h = F.sigmoid(self.fc2(h))
+        h = F.sigmoid(self.fc3(h))
         return h
-
 
 
 def load_model():
 	#Hyper parameters
 	input_size = 61
 	hidden_size = 50
-	output_size = 2
+	output_size = 3
 
-	path = os.path.join('models','simple_ff_model_5epochs_batch100_dict_hiden_size50_2HL_INP72_outp3_Forward_tanh_tanh_tanh_onlyrelevantdata.pt')
+	path = os.path.join('models','simple_ff_DICT_30epochs_batch100_dict_hiden_size50_2HL_INP72_outp3_Forward_sig3_onlyrelevantdata.pt')
 
-	neural_net = torch.load(path)
-	# neural_net = Net(input_size, hidden_size, output_size)
-	# neural_net.load_state_dict(torch.load(path))
+	#neural_net = torch.load(path)
+	neural_net = Net(input_size, hidden_size, output_size)
+	neural_net.load_state_dict(torch.load(path))
 
 	return neural_net
 
@@ -74,7 +74,15 @@ def state_var(carstate):
 # 								speedX	speedY	speedZ	trackPos	z	wheelSpinVel01	wheelSpinVel02	wheelSpinVel03	wheelSpinVel04	track00	track18	oppos00	oppos35
 
 	# Extract input_data
-	curr_state = np.asarray([carstate.angle, carstate.current_lap_time, carstate.distance_from_start, carstate.distance_raced,carstate.gear,carstate.last_lap_time,carstate.race_position,carstate.rpm,carstate.speed_x , carstate.speed_y, carstate.speed_z ,carstate.distance_from_center, carstate.z]+list(carstate.wheel_velocities)+list(carstate.distances_from_edge)+list(carstate.opponents))
+	curr_state = np.asarray([
+		carstate.angle,
+		carstate.speed_x / 200.0, 
+		carstate.speed_y, 
+		carstate.speed_z ,
+		carstate.distance_from_center, 
+		carstate.z]
+		+[bla / 200.0 for bla in list(carstate.distances_from_edge)]
+		+[bla / 200.0 for bla in list(carstate.opponents)])
 	# Turn  input state into Torch variable
 	inp_data = Variable(torch.from_numpy(curr_state).float())
 	return inp_data
@@ -188,27 +196,30 @@ class MyDriver(Driver):
 
 		# command = self.cruise(carstate)
 		command =Command()
-
-		model_outp = self.neural_net(state_var(carstate))
+		thing = state_var(carstate)
+		#print(thing)
+		model_outp = self.neural_net(thing)
 		# print('output0',float(model_outp.data[0]))
-		# command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
-		print('accel/brake',model_outp.data[0])
+		command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
+		print('accel: {} brake: {} steer: {}'.format(model_outp.data[0], model_outp.data[1], model_outp.data[2]))
 
-		if model_outp.data[0] >= 0:
-			command.accelerator = model_outp.data[0]
-
-		if model_outp.data[0]<0:
-			command.brake = model_outp.data[0]
-
-		command.steering = model_outp.data[1]
+		# brake = model_outp.data[1]
+		# if brake > 0.1:
+		# 	command.accelerator = 0.0
+		# 	command.brake = brake
+		# else:
+		# 	command.accelerator = model_outp.data[0]
+		command.accelerator = model_outp.data[0]
+		command.brake = model_outp.data[1]
+		command.steering = (model_outp.data[2] - 0.5) * 2.0
 		# self.steer(carstate, 0.0, command)
 		# v_x = 80
 		# ACC_LATERAL_MAX = 6400 * 5
 		# v_x = min(80, math.sqrt(ACC_LATERAL_MAX / abs(command.steering)))
 
-		print('steering command',command.accelerator)
-		print('accelerator command',command.accelerator)
-		print('brake command', model_outp.data[1])
+		# print('steering command',command.accelerator)
+		# print('accelerator command',command.accelerator)
+		# print('brake command', model_outp.data[1])
 
 
 		# print('steering command',command.steering)
