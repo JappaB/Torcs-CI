@@ -60,7 +60,8 @@ michigan
 
   <section name="Tracks">
     <attnum name="maximum number" val="999"/>
-    <section name="1"><attstr name="name" val="alpine-1"/><attstr name="category" val="road"/></section>
+    <section name="1"><attstr name="name" val="f-speedway"/><attstr name="category" val="oval"/></section>
+    <!--<section name="1"><attstr name="name" val="alpine-1"/><attstr name="category" val="road"/></section>
     <section name="2"><attstr name="name" val="brondehach"/><attstr name="category" val="road"/></section>
     <section name="3"><attstr name="name" val="corkscrew"/><attstr name="category" val="road"/></section>
     <section name="4"><attstr name="name" val="dirt-2"/><attstr name="category" val="dirt"/></section>
@@ -92,7 +93,7 @@ michigan
     <section name="30"><attstr name="name" val="f-speedway"/><attstr name="category" val="oval"/></section>
     <section name="31"><attstr name="name" val="g-speedway"/><attstr name="category" val="oval"/></section>
     <section name="32"><attstr name="name" val="michigan"/><attstr name="category" val="oval"/></section>
-    <section name="33"><attstr name="name" val="e-track-5"/><attstr name="category" val="oval"/></section>
+    <section name="33"><attstr name="name" val="e-track-5"/><attstr name="category" val="oval"/></section>-->
   </section>
 
   <section name="Races">
@@ -123,7 +124,7 @@ michigan
     <attnum name="maximum number" val="40"/>
     <attnum name="focused idx" val="0"/>
     <attstr name="focused module" val="usr_2016"/>
-    <section name="1">
+    <!--<section name="1">
       <attnum name="idx" val="3"/>
       <attstr name="module" val="tita"/>
     </section>
@@ -146,8 +147,8 @@ michigan
     <section name="6">
       <attnum name="idx" val="2"/>
       <attstr name="module" val="bt"/>
-    </section>
-    <section name="7">
+    </section>-->
+    <section name="1">
       <attnum name="idx" val="0"/>
       <attstr name="module" val="usr_2016"/>
     </section>
