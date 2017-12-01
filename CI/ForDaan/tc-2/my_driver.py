@@ -47,22 +47,64 @@ class Net(nn.Module):
         super(Net, self).__init__()
         self.fc1 = nn.Linear(input_size, hidden_size)
         self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, output_size)
+        self.fc3 = nn.Linear(hidden_size, hidden_size)
+        self.fc4 = nn.Linear(hidden_size, hidden_size)
+        self.fc5 = nn.Linear(hidden_size, output_size)
     
     def forward(self, x):
-        h = F.sigmoid(self.fc1(x))
-        h = F.sigmoid(self.fc2(h))
-        h = F.sigmoid(self.fc3(h))
+        h = F.tanh(self.fc1(x))
+        h = F.tanh(self.fc2(h))
+        h = F.tanh(self.fc3(h))
+        h = F.tanh(self.fc4(h))
+        h = F.tanh(self.fc5(h))
         return h
 
+    
+class RNNJens(torch.nn.Module):
+    def __init__(self, D_in, H, D_out):
+        """
+        In the constructor we instantiate two nn.Linear modules and assign them as
+        member variables.
+        """
+        super(RNNJens, self).__init__()
+        self.hidden_dim = H
+        
+        self.recurrent = nn.LSTM(D_in, H)
+        self.linear = nn.Linear(H, D_out)
+        self.hidden = self.init_hidden()
+        
+    def init_hidden(self):
+        """
+        Before we've done anything, we dont have any hidden state.
+        Refer to the Pytorch documentation to see exactly
+        why they have this dimensionality.
+        The axes semantics are (num_layers, minibatch_size, hidden_dim)
+        """
+        return (torch.autograd.Variable(torch.zeros(1, 1, self.hidden_dim)),
+                torch.autograd.Variable(torch.zeros(1, 1, self.hidden_dim)))
+    
+    def addNoise(self, noise):
+        print(self.recurrent.weights.shape())
+        
+    def forward(self, x):
+        """
+        In the forward function we accept a Variable of input data and we must return
+        a Variable of output data. We can use Modules defined in the constructor as
+        well as arbitrary operators on Variables.
+        """
+        lstm_out, self.hidden = self.recurrent(x, self.hidden)
+        y = self.linear(lstm_out)
+        y_pred = F.sigmoid(y)
+        
+        return y_pred
 
 def load_model():
 	#Hyper parameters
-	input_size = 25
-	hidden_size = 50
-	output_size = 3
+	input_size = 2
+	hidden_size = 100
+	output_size = 1
 
-	path = os.path.join('models','simple_ff_dict_5epochs_batch100_dict_hidden_size50_2HL_INP36_outp3_Forward_relu_relu_sig_oval.pt')
+	path = os.path.join('models','teringdict.pt')
 
 	#neural_net = torch.load(path)
 	neural_net = Net(input_size, hidden_size, output_size)
@@ -76,14 +118,14 @@ def state_var(carstate):
 	# Extract input_data
 	curr_state = np.asarray([
 		carstate.angle,
-		carstate.speed_x / 200.0, 
-		carstate.speed_y, 
-		carstate.speed_z ,
+		# carstate.speed_x / 200.0, 
+		# carstate.speed_y, 
+		# carstate.speed_z ,
 		carstate.distance_from_center, 
-		carstate.z]
-		+[bla / 200.0 for bla in list(carstate.distances_from_edge)]
+		# carstate.z]
+		# +[bla / 200.0 for bla in list(carstate.distances_from_edge)
 		#+[bla / 200.0 for bla in list(carstate.opponents)]
-		)
+		])
 	# Turn  input state into Torch variable
 	inp_data = Variable(torch.from_numpy(curr_state).float())
 	return inp_data
@@ -100,12 +142,14 @@ class MyDriver(Driver):
 		# Load model
 		self.neural_net = load_model()
 		# open sensor data viewer
-		self.sensorScreen = SensorScreen()
+		#self.sensorScreen = SensorScreen()
 		# remembering gas and brake pedals
 		self.accelPressure = 1.0
 		self.brakePressure = 0.2
-	
+		#self.startCsv()
+
 	def on_shutdown(self):
+		#self.csvFile.close()
 		...
 
 	@property
@@ -195,14 +239,17 @@ class MyDriver(Driver):
 		drivers) successfully driven along the race track.
 		"""
 
-		# command = self.cruise(carstate)
-		command =Command()
+		command = self.cruise(carstate)
+		
+		#self.writeCsv(carstate, command)
 		thing = state_var(carstate)
-		#print(thing)
 		model_outp = self.neural_net(thing)
-		# print('output0',float(model_outp.data[0]))
-		command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
-		print('accel: {} brake: {} steer: {}'.format(model_outp.data[0], model_outp.data[1], model_outp.data[2]))
+		#print(model_outp.data[0])
+		#if carstate.current_lap_time > 10:
+		command.steering = model_outp.data[0]
+		#print('output0',float(model_outp.data[0]))
+		#command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
+		#print('accel: {} brake: {} steer: {}'.format(model_outp.data[0], model_outp.data[1], model_outp.data[2]))
 
 		# brake = model_outp.data[1]
 		# if brake > 0.1:
@@ -210,9 +257,12 @@ class MyDriver(Driver):
 		# 	command.brake = brake
 		# else:
 		# 	command.accelerator = model_outp.data[0]
-		command.accelerator = model_outp.data[0]
-		command.brake = model_outp.data[1]
-		command.steering = (model_outp.data[2] - 0.5) * 2.0
+		#command.accelerator = model_outp.data[0]
+		#command.brake = 0.0
+		#if model_outp.data[1] > 0.3:
+		#	command.brake = model_outp.data[1]
+		#	command.accelerator = 0.0
+		#command.steering = (model_outp.data[2] - 0.5) * 2.0
 		# self.steer(carstate, 0.0, command)
 		# v_x = 80
 		# ACC_LATERAL_MAX = 6400 * 5
@@ -228,6 +278,70 @@ class MyDriver(Driver):
 		# print('brake command', model_outp.data[1])
 
 		# self.accelerate(carstate, v_x, command)
-		self.sensorScreen.update(carstate, self.rangeAngles)
+		#self.sensorScreen.update(carstate, self.rangeAngles)
 		return command
 
+
+	def startCsv (self):
+		headers = ([
+			"accel",
+			"brake",
+			"steer",
+			"angle",
+			"curLapTime",
+			"distFromStart",
+			"distRaced",
+			"gear",
+			"lastLapTime",
+			"racePos",
+			"rpm",
+			"speedX",
+			"speedY",
+			"speedZ",
+			"trackPos",
+			"z",
+			"wheelSpinVel01",
+			"wheelSpinVel02",
+			"wheelSpinVel03",
+			"wheelSpinVel04",
+			"track00","track01","track02","track03","track04",
+			"track05","track06","track07","track08","track09",
+			"track10","track11","track12","track13","track14",
+			"track15","track16","track17","track18",
+			"oppos00","oppos01","oppos02","oppos03","oppos04",
+			"oppos05","oppos06","oppos07","oppos08","oppos09",
+			"oppos10","oppos11","oppos12","oppos13","oppos14",
+			"oppos15","oppos16","oppos17","oppos18","oppos19",
+			"oppos20","oppos21","oppos22","oppos23","oppos24",
+			"oppos25","oppos26","oppos27","oppos28","oppos29",
+			"oppos30","oppos31","oppos32","oppos33","oppos34",
+			"oppos35"])
+		self.csvFile = open('/home/student/cruise.csv', 'w')
+		header = ';'.join(headers)
+		self.csvFile.write(header + '\n')
+
+
+	def writeCsv (self, carstate, command):
+		rowData = []
+		rowData.append(command.accelerator)
+		rowData.append(command.brake)
+		rowData.append(command.steering)
+		rowData.append(carstate.angle)
+		rowData.append(carstate.current_lap_time)
+		rowData.append(carstate.distance_from_start)
+		rowData.append(carstate.distance_raced)
+		rowData.append(carstate.gear)
+		rowData.append(carstate.last_lap_time)
+		rowData.append(carstate.race_position)
+		rowData.append(carstate.rpm)
+		rowData.append(carstate.speed_x)
+		rowData.append(carstate.speed_y)
+		rowData.append(carstate.speed_z)
+		for thing in carstate.wheel_velocities:
+			rowData.append(thing) 
+		for thing in carstate.distances_from_edge:
+			rowData.append(thing) 
+		for thing in carstate.opponents:
+			rowData.append(thing)
+		row = ';'.join([str(thing) for thing in rowData])
+		self.csvFile.write(row + '\n')
