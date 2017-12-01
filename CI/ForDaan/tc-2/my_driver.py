@@ -58,11 +58,11 @@ class Net(nn.Module):
 
 def load_model():
 	#Hyper parameters
-	input_size = 61
+	input_size = 25
 	hidden_size = 50
 	output_size = 3
 
-	path = os.path.join('models','simple_ff_DICT_30epochs_batch100_dict_hiden_size50_2HL_INP72_outp3_Forward_sig3_onlyrelevantdata.pt')
+	path = os.path.join('models','simple_ff_dict_5epochs_batch100_dict_hidden_size50_2HL_INP36_outp3_Forward_relu_relu_sig_oval.pt')
 
 	#neural_net = torch.load(path)
 	neural_net = Net(input_size, hidden_size, output_size)
@@ -82,7 +82,8 @@ def state_var(carstate):
 		carstate.distance_from_center, 
 		carstate.z]
 		+[bla / 200.0 for bla in list(carstate.distances_from_edge)]
-		+[bla / 200.0 for bla in list(carstate.opponents)])
+		#+[bla / 200.0 for bla in list(carstate.opponents)]
+		)
 	# Turn  input state into Torch variable
 	inp_data = Variable(torch.from_numpy(curr_state).float())
 	return inp_data
