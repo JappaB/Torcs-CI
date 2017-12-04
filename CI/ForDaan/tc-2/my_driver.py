@@ -52,10 +52,10 @@ class Net(nn.Module):
         self.fc5 = nn.Linear(hidden_size, output_size)
     
     def forward(self, x):
-        h = F.tanh(self.fc1(x))
-        h = F.tanh(self.fc2(h))
-        h = F.tanh(self.fc3(h))
-        h = F.tanh(self.fc4(h))
+        h = F.relu(self.fc1(x))
+        h = F.relu(self.fc2(h))
+        h = F.relu(self.fc3(h))
+        h = F.relu(self.fc4(h))
         h = F.tanh(self.fc5(h))
         return h
 
@@ -98,16 +98,65 @@ class RNNJens(torch.nn.Module):
         
         return y_pred
 
+class SimpleNetwork(nn.Module):
+    def __init__(self, in_dim, hidden_units, out_dim):
+        super(SimpleNetwork, self).__init__()
+        self.in_dim = in_dim
+        self.hidden_units = hidden_units
+        self.out_dim = out_dim
+
+        self.lin1 = torch.nn.Linear(in_dim, hidden_units)
+        self.lin2 = torch.nn.Linear(hidden_units, out_dim)
+
+    def forward(self, inputs):
+        out = self.lin1(inputs)
+        # out = F.sigmoid(out)
+        out = self.lin2(out)
+        out = F.tanh(out)
+        return out
+
+    def get_n_units(self):
+        return (self.in_dim, self.hidden_units, self.out_dim)
+
+
+
+class RNN2(nn.Module):
+	def __init__(self, input_size, hidden_units, output_size):
+	    super(RNN2, self).__init__()
+
+	    self.hidden_units = hidden_units
+	    self.in_dim = input_size
+	    self.out_dim = output_size
+
+	    # define layers
+	    self.input = nn.Linear(input_size, hidden_units)
+	    self.rnn = nn.LSTM(hidden_units, hidden_units, num_layers=2, dropout=0.05)
+	    self.output = nn.Linear(hidden_units, output_size)
+
+	def forward(self, input, hidden):
+	    inp = self.input(input.view(1,-1)).unsqueeze(1)
+	    output, hidden = self.rnn(inp, hidden)
+	    output = self.output(output.view(1, -1))
+	    return output, hidden
+
+	def init_hidden(self, batch_size):
+	    return (Variable(torch.zeros(2, batch_size, self.hidden_units)),
+	                Variable(torch.zeros(2, batch_size, self.hidden_units)))
+
+	def get_n_units(self):
+	    return (self.in_dim, self.hidden_units, self.out_dim)
+
 def load_model():
 	#Hyper parameters
-	input_size = 2
-	hidden_size = 100
+	input_size = 22
+	hidden_size = 15
 	output_size = 1
 
-	path = os.path.join('models','teringdict.pt')
+	path = os.path.join('models','steering_22-15-1_RNN.h5')
 
 	#neural_net = torch.load(path)
-	neural_net = Net(input_size, hidden_size, output_size)
+	neural_net = RNN2(input_size, hidden_size, output_size)
+	hidden = neural_net.init_hidden(1)
 	neural_net.load_state_dict(torch.load(path))
 
 	return neural_net
@@ -117,15 +166,15 @@ def state_var(carstate):
 
 	# Extract input_data
 	curr_state = np.asarray([
-		carstate.angle,
-		# carstate.speed_x / 200.0, 
+		# carstate.speed_x, 
 		# carstate.speed_y, 
 		# carstate.speed_z ,
 		carstate.distance_from_center, 
+		carstate.angle]
 		# carstate.z]
-		# +[bla / 200.0 for bla in list(carstate.distances_from_edge)
-		#+[bla / 200.0 for bla in list(carstate.opponents)]
-		])
+		+list(carstate.distances_from_edge)
+		# +list(carstate.opponents)
+		)
 	# Turn  input state into Torch variable
 	inp_data = Variable(torch.from_numpy(curr_state).float())
 	return inp_data
@@ -142,11 +191,15 @@ class MyDriver(Driver):
 		# Load model
 		self.neural_net = load_model()
 		# open sensor data viewer
-		#self.sensorScreen = SensorScreen()
+		self.sensorScreen = SensorScreen()
 		# remembering gas and brake pedals
 		self.accelPressure = 1.0
 		self.brakePressure = 0.2
 		#self.startCsv()
+
+		#ant colony feromone knowledge drop
+		self.track_knowledge = {}
+		self.total_angle_prev = 0.0
 
 	def on_shutdown(self):
 		#self.csvFile.close()
@@ -154,6 +207,7 @@ class MyDriver(Driver):
 
 	@property
 	def range_finder_angles(self):
+		return self.rangeAngles
 		self.rangeAngles = []
 		roadWidth = 11
 		sensorFocus = 25
@@ -194,9 +248,24 @@ class MyDriver(Driver):
 		command.steering = (
 				self.steerToCorner(carstate.angle) + 
 				self.steerToCenter(carstate.distance_from_center) + 
-				self.steerToFurthestRange(carstate.distances_from_edge))
+				self.steerToFurthestRange(carstate.distances_from_edge)+
+				self.heat_avoiding_missile(list(carstate.opponents)))
+
+		#dampen steering PD-controller
+		if hasattr(MyDriver, 'steering_prev'):
+			#diff
+			delta_steer = steering_prev-command.steering
+			command.steering -= delta_steer*0.5
+			self.steering_prev = command.steering
+		else:
+			self.steering_prev = command.steering
+
+
+
+
+		#TODO faster cruise 
 		command.gear = autoTransmission(carstate.gear, carstate.rpm, 0.0)
-		targetSpeed = 100 # kph
+		targetSpeed = 80 # kph
 		targetSpeed -= 100 * abs(command.steering)
 		targetSpeed -= (100 - np.max(carstate.distances_from_edge))/2
 		targetSpeed = max(targetSpeed, 30)
@@ -230,6 +299,61 @@ class MyDriver(Driver):
 		return command
 
 
+	def heat_avoiding_missile(self, opponents_finder):
+		front_lasers = [opponents_finder[16:20]]
+		opp_dist = np.min(front_lasers)
+		maxIndex = np.argmax(front_lasers)
+
+		# print('16',opponents_finder[16])
+		
+		# print('17',opponents_finder[17])
+
+		# print('18',opponents_finder[18])
+
+		# print('19',opponents_finder[19])
+
+		steering = 0
+		# min_opp_dist = 100
+		# if opp_dist < min_opp_dist:
+		# 	if:
+				
+		# 		action = clip(min_opp_dist - opp_dist, 0, min_opp_dist)
+		# 		action /= min_opp_dist
+		# 		action *= action
+		# 		angle = -self.rangeAngles[maxIndex] * math.pi/180.0)
+		# 		steering = angle / math.pi
+		# 		print('steer to: ', maxIndex)
+
+		return steering
+
+
+	def drop_knowledge(self, carstate, command):
+		# {dist from start (int): angle of steering + angle(bycicle model),....}
+
+		self.total_angle = carstate.angle+((math.pi*command.steering)/180.0)
+		# Interpolation TODO?
+		print('dist raced', carstate.distance_from_start)
+		#drop knowledge every 5m (TODO: Only if you are front car which drives savely)
+		if (int(carstate.distance_from_start)) and (carstate.last_lap_time ==0):
+			self.total_angle_prev = self.total_angle
+			self.track_knowledge[int(carstate.distance_from_start)] = self.total_angle
+			# print('lap1',command.steering)
+		# second round first car starts using the knowledge as well
+		elif(carstate.last_lap_time != 0):
+			print('lookup steering angle last round:')
+			print('lookup',(self.track_knowledge[str(int(carstate.distance_from_start))]
+				*180/math.pi)
+
+			command.steering = (
+				self.steerToCenter(carstate.distance_from_center) +
+				(self.track_knowledge[str(int(carstate.distance_from_start))]*180/(math.pi)))
+			print('lap2',command.steering)
+
+
+		# print('prev_lap_time',carstate.last_lap_time) 
+		# print(self.track_knowledge)
+
+
 	def drive(self, carstate)-> Command:
 		"""
 		Produces driving command in response to newly received car state.
@@ -238,17 +362,33 @@ class MyDriver(Driver):
 		lot of inputs. But it will get the car (if not disturbed by other
 		drivers) successfully driven along the race track.
 		"""
-
 		command = self.cruise(carstate)
-		
+
+		self.drop_knowledge(carstate, command)
+		# print('angle',carstate.angle)
+		# print('steering converted', ((math.pi*command.steering)/180.0))
 		#self.writeCsv(carstate, command)
-		thing = state_var(carstate)
-		model_outp = self.neural_net(thing)
+		# command = Command()
+		# state = state_var(carstate)
+
+
+		# net = load_model()
+		# hidden = net.init_hidden(1)
+		# model_outp = net(state,hidden)
+		# print(model_outp)
+
+		# v_x = 0
+
+		# command.accelerator = v_x
+		# command.steering = model_outp[0].data[0]* 0.5
+		# print(command.steering)
 		#print(model_outp.data[0])
 		#if carstate.current_lap_time > 10:
-		command.steering = model_outp.data[0]
+		# command.steering = model_outp.data[0]
+
+
 		#print('output0',float(model_outp.data[0]))
-		#command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
+		command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
 		#print('accel: {} brake: {} steer: {}'.format(model_outp.data[0], model_outp.data[1], model_outp.data[2]))
 
 		# brake = model_outp.data[1]
@@ -278,7 +418,8 @@ class MyDriver(Driver):
 		# print('brake command', model_outp.data[1])
 
 		# self.accelerate(carstate, v_x, command)
-		#self.sensorScreen.update(carstate, self.rangeAngles)
+		# carstate.angle *= math.pi/180.0
+		self.sensorScreen.update(carstate, self.rangeAngles)
 		return command
 
 
