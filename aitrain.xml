@@ -59,41 +59,46 @@ michigan
   </section>
 
   <section name="Tracks">
-    <attnum name="maximum number" val="999"/>
-    <section name="1"><attstr name="name" val="f-speedway"/><attstr name="category" val="oval"/></section>
-    <!--<section name="1"><attstr name="name" val="alpine-1"/><attstr name="category" val="road"/></section>
-    <section name="2"><attstr name="name" val="brondehach"/><attstr name="category" val="road"/></section>
-    <section name="3"><attstr name="name" val="corkscrew"/><attstr name="category" val="road"/></section>
-    <section name="4"><attstr name="name" val="dirt-2"/><attstr name="category" val="dirt"/></section>
+    <attnum name="maximum number" val="1"/>
+    <section name="1"><attstr name="name" val="alpine-1"/><attstr name="category" val="road"/></section>
+    <section name="2"><attstr name="name" val="g-track-3"/><attstr name="category" val="road"/></section>
+    <section name="3"><attstr name="name" val="dirt-4"/><attstr name="category" val="dirt"/></section>
+    <section name="4"><attstr name="name" val="d-speedway"/><attstr name="category" val="oval"/></section>
     <section name="5"><attstr name="name" val="e-track-2"/><attstr name="category" val="road"/></section>
-    <section name="6"><attstr name="name" val="e-track-6"/><attstr name="category" val="road"/></section>
+    <section name="6"><attstr name="name" val="c-speedway"/><attstr name="category" val="oval"/></section>
     <section name="7"><attstr name="name" val="forza"/><attstr name="category" val="road"/></section>
-    <section name="8"><attstr name="name" val="g-track-3"/><attstr name="category" val="road"/></section>
+    <section name="8"><attstr name="name" val="e-track-5"/><attstr name="category" val="oval"/></section>
     <section name="9"><attstr name="name" val="wheel-1"/><attstr name="category" val="road"/></section>
-    <section name="10"><attstr name="name" val="wheel-2"/><attstr name="category" val="road"/></section>
-    <section name="11"><attstr name="name" val="alpine-2"/><attstr name="category" val="road"/></section>
+    <section name="10"><attstr name="name" val="g-track-1"/><attstr name="category" val="road"/></section>
+    <section name="11"><attstr name="name" val="dirt-3"/><attstr name="category" val="dirt"/></section>
     <section name="12"><attstr name="name" val="eroad"/><attstr name="category" val="road"/></section>
     <section name="13"><attstr name="name" val="e-track-3"/><attstr name="category" val="road"/></section>
-    <section name="14"><attstr name="name" val="e-track-4"/><attstr name="category" val="road"/></section>
-    <section name="15"><attstr name="name" val="g-track-1"/><attstr name="category" val="road"/></section>
-    <section name="16"><attstr name="name" val="g-track-2"/><attstr name="category" val="road"/></section>
-    <section name="17"><attstr name="name" val="ole-road-1"/><attstr name="category" val="road"/></section>
+    <section name="14"><attstr name="name" val="g-speedway"/><attstr name="category" val="oval"/></section>
+    <section name="15"><attstr name="name" val="e-speedway"/><attstr name="category" val="oval"/></section>
+    <section name="16"><attstr name="name" val="dirt-5"/><attstr name="category" val="dirt"/></section>
+    <section name="17"><attstr name="name" val="alpine-2"/><attstr name="category" val="road"/></section>
     <section name="18"><attstr name="name" val="ruudskogen"/><attstr name="category" val="road"/></section>
     <section name="19"><attstr name="name" val="street-1"/><attstr name="category" val="road"/></section>
     <section name="20"><attstr name="name" val="dirt-1"/><attstr name="category" val="dirt"/></section>
-    <section name="21"><attstr name="name" val="dirt-3"/><attstr name="category" val="dirt"/></section>
-    <section name="22"><attstr name="name" val="dirt-4"/><attstr name="category" val="dirt"/></section>
-    <section name="23"><attstr name="name" val="dirt-5"/><attstr name="category" val="dirt"/></section>
+    <section name="21"><attstr name="name" val="corkscrew"/><attstr name="category" val="road"/></section>
+    <section name="22"><attstr name="name" val="ole-road-1"/><attstr name="category" val="road"/></section>
+    <section name="23"><attstr name="name" val="g-track-2"/><attstr name="category" val="road"/></section>
     <section name="24"><attstr name="name" val="dirt-6"/><attstr name="category" val="dirt"/></section>
     <section name="25"><attstr name="name" val="a-speedway"/><attstr name="category" val="oval"/></section>
-    <section name="26"><attstr name="name" val="b-speedway"/><attstr name="category" val="oval"/></section>
-    <section name="27"><attstr name="name" val="c-speedway"/><attstr name="category" val="oval"/></section>
-    <section name="28"><attstr name="name" val="d-speedway"/><attstr name="category" val="oval"/></section>
-    <section name="29"><attstr name="name" val="e-speedway"/><attstr name="category" val="oval"/></section>
+    <section name="26"><attstr name="name" val="e-track-6"/><attstr name="category" val="road"/></section>
+    <section name="27"><attstr name="name" val="dirt-2"/><attstr name="category" val="dirt"/></section>
+    <section name="28"><attstr name="name" val="b-speedway"/><attstr name="category" val="oval"/></section>
+    <section name="29"><attstr name="name" val="brondehach"/><attstr name="category" val="road"/></section>
     <section name="30"><attstr name="name" val="f-speedway"/><attstr name="category" val="oval"/></section>
-    <section name="31"><attstr name="name" val="g-speedway"/><attstr name="category" val="oval"/></section>
+    <section name="31"><attstr name="name" val="e-track-4"/><attstr name="category" val="road"/></section>
     <section name="32"><attstr name="name" val="michigan"/><attstr name="category" val="oval"/></section>
-    <section name="33"><attstr name="name" val="e-track-5"/><attstr name="category" val="oval"/></section>-->
+    <section name="33"><attstr name="name" val="wheel-2"/><attstr name="category" val="road"/></section>
+    <!-- below is set of tracks that do not work for usr_2016-->
+    <section name="34"><attstr name="name" val="aalborg"/><attstr name="category" val="road"/></section>
+    <section name="35"><attstr name="name" val="mixed-1"/><attstr name="category" val="dirt"/></section>
+    <section name="36"><attstr name="name" val="spring"/><attstr name="category" val="road"/></section>
+    <section name="37"><attstr name="name" val="e-track-1"/><attstr name="category" val="road"/></section>
+    <section name="38"><attstr name="name" val="mixed-2"/><attstr name="category" val="dirt"/></section>
   </section>
 
   <section name="Races">
@@ -108,7 +113,7 @@ michigan
     <attstr name="type" val="race"/>
     <attstr name="starting order" val="drivers list"/>
     <attstr name="restart" val="yes"/>
-    <attnum name="laps" val="5"/>
+    <attnum name="laps" val="2"/>
     <section name="Starting Grid">
       <attnum name="rows" val="2"/>
       <attnum name="distance to start" val="25"/>
@@ -123,36 +128,17 @@ michigan
   <section name="Drivers">
     <attnum name="maximum number" val="40"/>
     <attnum name="focused idx" val="0"/>
-    <attstr name="focused module" val="usr_2016"/>
-    <!--<section name="1">
-      <attnum name="idx" val="3"/>
-      <attstr name="module" val="tita"/>
-    </section>
-    <section name="2">
-      <attnum name="idx" val="3"/>
-      <attstr name="module" val="berniw"/>
-    </section>
-    <section name="3">
-      <attnum name="idx" val="3"/>
-      <attstr name="module" val="olethros"/>
-    </section>
-    <section name="4">
-      <attnum name="idx" val="3"/>
-      <attstr name="module" val="lliaw"/>
-    </section>
-    <section name="5">
-      <attnum name="idx" val="3"/>
-      <attstr name="module" val="inferno"/>
-    </section>
-    <section name="6">
-      <attnum name="idx" val="2"/>
-      <attstr name="module" val="bt"/>
-    </section>-->
-    <section name="1">
-      <attnum name="idx" val="0"/>
-      <attstr name="module" val="usr_2016"/>
-    </section>
-
+    <attstr name="focused module" val="scr_server"/>
+    <section name="1"><attnum name="idx" val="0"/><attstr name="module" val="scr_server"/></section>
+    <section name="2"><attnum name="idx" val="1"/><attstr name="module" val="scr_server"/></section>
+    <section name="3"><attnum name="idx" val="2"/><attstr name="module" val="scr_server"/></section>
+    <section name="4"><attnum name="idx" val="3"/><attstr name="module" val="scr_server"/></section>
+    <section name="5"><attnum name="idx" val="4"/><attstr name="module" val="scr_server"/></section>
+    <section name="6"><attnum name="idx" val="5"/><attstr name="module" val="scr_server"/></section>
+    <section name="7"><attnum name="idx" val="6"/><attstr name="module" val="scr_server"/></section>
+    <section name="8"><attnum name="idx" val="7"/><attstr name="module" val="scr_server"/></section>
+    <section name="9"><attnum name="idx" val="8"/><attstr name="module" val="scr_server"/></section>
+    <section name="10"><attnum name="idx" val="9"/><attstr name="module" val="scr_server"/></section>
   </section>
 
   <section name="Configuration">

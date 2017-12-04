@@ -460,8 +460,8 @@ def race (c):
     R['steer'] = steerToCorner(S['angle']) + steerToCenter(S['trackPos'])
     R['gear'] = autoTransmission (S['gear'], S['rpm'], rearSlip)
 
-    updateTrackDisplay(S['track'])
-    updateEnemyDisplay(S['opponents'])
+    # updateTrackDisplay(S['track'])
+    # updateEnemyDisplay(S['opponents'])
 
 def cruise (c):
     S= c.S.d
@@ -481,8 +481,8 @@ def cruise (c):
     R['steer'] = steerToCorner(S['angle']) + steerToCenter(S['trackPos'])
     R['gear'] = autoTransmission (S['gear'], S['rpm'], 0.0)
 
-    updateTrackDisplay(S['track'])
-    updateEnemyDisplay(S['opponents'])
+    # updateTrackDisplay(S['track'])
+    # updateEnemyDisplay(S['opponents'])
 
     return
 
@@ -571,40 +571,40 @@ def init ():
     accelPressure = 1.0
     
     # debug drawing screen
-    global zoom, carCenter, screenSize
-    Point = namedtuple('Point', 'x y')
-    Box = namedtuple('Box', 'width height')
-    zoom = 4.0
-    screenSize = Box(600, 1000)
-    carSize = Box(1.94, 4.52)
-    carCenter = Point(0.5*screenSize.width, 0.9*screenSize.height)
+    # global zoom, carCenter, screenSize
+    # Point = namedtuple('Point', 'x y')
+    # Box = namedtuple('Box', 'width height')
+    # zoom = 4.0
+    # screenSize = Box(600, 1000)
+    # carSize = Box(1.94, 4.52)
+    # carCenter = Point(0.5*screenSize.width, 0.9*screenSize.height)
 
     calculateLrfAngles()
 
-    global master,w,SCR
-    master = Tk()
-    w = Canvas(master, width=screenSize.width, height=screenSize.height)
-    w.pack()
-    SCR = {}
-    SCR['background'] = w.create_rectangle(0, 0, screenSize.width+1, screenSize.height+1, fill='#018E0E')
-    SCR['road'] = w.create_polygon([0,0,0,0], fill='#777', smooth='1')
-    SCR['sidelines'] = []
-    for i in range(2):
-        SCR['sidelines'].append(w.create_line(carCenter, carCenter, fill='#CCC', width='3', smooth='1'))
-    SCR['rangeLines'] = []
-    for i in range(19):
-        SCR['rangeLines'].append(w.create_line(carCenter, carCenter, fill='#888'))
-    SCR['enemyArcs'] = []
-    for i in range(36):
-        thetaStart = -PI/2 - (i+1) * PI/18
-        thetaStart *= 180.0/PI
-        extent = 10
-        SCR['enemyArcs'].append(w.create_arc(carCenter, carCenter, start=thetaStart, extent=extent, style='arc', width='2', outline='red'))
-    SCR['car'] = w.create_rectangle(
-        carCenter.x - 0.5*carSize.width*zoom, 
-        carCenter.y - 0.5*carSize.height*zoom, 
-        carCenter.x + 0.5*carSize.width*zoom, 
-        carCenter.y + 0.5*carSize.height*zoom, fill="blue")
+    # global master,w,SCR
+    # master = Tk()
+    # w = Canvas(master, width=screenSize.width, height=screenSize.height)
+    # w.pack()
+    # SCR = {}
+    # SCR['background'] = w.create_rectangle(0, 0, screenSize.width+1, screenSize.height+1, fill='#018E0E')
+    # SCR['road'] = w.create_polygon([0,0,0,0], fill='#777', smooth='1')
+    # SCR['sidelines'] = []
+    # for i in range(2):
+    #     SCR['sidelines'].append(w.create_line(carCenter, carCenter, fill='#CCC', width='3', smooth='1'))
+    # SCR['rangeLines'] = []
+    # for i in range(19):
+    #     SCR['rangeLines'].append(w.create_line(carCenter, carCenter, fill='#888'))
+    # SCR['enemyArcs'] = []
+    # for i in range(36):
+    #     thetaStart = -PI/2 - (i+1) * PI/18
+    #     thetaStart *= 180.0/PI
+    #     extent = 10
+    #     SCR['enemyArcs'].append(w.create_arc(carCenter, carCenter, start=thetaStart, extent=extent, style='arc', width='2', outline='red'))
+    # SCR['car'] = w.create_rectangle(
+    #     carCenter.x - 0.5*carSize.width*zoom, 
+    #     carCenter.y - 0.5*carSize.height*zoom, 
+    #     carCenter.x + 0.5*carSize.width*zoom, 
+    #     carCenter.y + 0.5*carSize.height*zoom, fill="blue")
 
     # map drawing screen
     #mapWindowSize = Box(1000, 1000)
@@ -650,8 +650,8 @@ def doRace (driver):
             break
         driver(C)
         C.respond_to_server()
-        if 'normal' == master.state():
-            w.update()
+        #if 'normal' == master.state():
+            # w.update()
             #canvas.update()
     C.shutdown()
     return flag

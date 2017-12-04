@@ -1,9 +1,10 @@
 import enum
 import logging
 import socket
-
+from timeit import default_timer as timer
 from pytocl.car import State as CarState
 from pytocl.driver import Driver
+import numpy as np
 
 _logger = logging.getLogger(__name__)
 
@@ -11,6 +12,7 @@ _logger = logging.getLogger(__name__)
 MSG_IDENTIFIED = b'***identified***'
 MSG_SHUTDOWN = b'***shutdown***'
 MSG_RESTART = b'***restart***'
+# MSG_SKIPPING = b'***skipping***'
 
 # timeout for socket connection in seconds and msec:
 TO_SOCKET_SEC = 1
@@ -36,7 +38,9 @@ class Client:
         self.serializer = serializer or Serializer()
         self.state = State.STOPPED
         self.socket = None
-
+        self.driverPerformance = 0.0
+        # self.timeTaken = []
+        # self.shit = 0
         _logger.debug('Initializing {}.'.format(self))
 
     def __repr__(self):
@@ -68,17 +72,18 @@ class Client:
 
         _logger.info('Client stopped.')
         self.state = State.STOPPED
+        return self.driverPerformance
 
     def stop(self):
         """Exits cyclic client execution (asynchronously)."""
         if self.state is State.RUNNING:
             _logger.info('Disconnecting from racing server.')
             self.state = State.STOPPING
-            self.driver.on_shutdown()
+            self.driverPerformance = self.driver.on_shutdown()
 
     def _configure_udp_socket(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.socket.settimeout(TO_SOCKET_SEC)
+        self.socket.settimeout(.05)
 
     def _register_driver(self):
         """
@@ -111,6 +116,8 @@ class Client:
                 if MSG_IDENTIFIED in buffer:
                     _logger.debug('Server accepted connection.')
                     connected = True
+                elif "boop" in buffer:
+                    print("BOOOOOP")
 
             except socket.error as ex:
                 _logger.debug('No connection to server yet ({}).'.format(ex))
@@ -118,6 +125,8 @@ class Client:
     def _process_server_msg(self):
         try:
             buffer, _ = self.socket.recvfrom(TO_SOCKET_MSEC)
+            # start = timer()
+
             _logger.debug('Received buffer {!r}.'.format(buffer))
 
             if not buffer:
@@ -131,6 +140,12 @@ class Client:
                 _logger.info('Server requested restart of driver.')
                 self.driver.on_restart()
 
+            # elif MSG_SKIPPING in buffer:
+            #     _logger.info('Server skipped to the next race.')
+            #     _logger.info('Received buffer {!r}.'.format(buffer))
+            #     performance = buffer.decode().split("distRaced:",1)[1] 
+            #     self.driver.on_skip(performance)
+
             else:
                 sensor_dict = self.serializer.decode(buffer)
                 carstate = CarState(sensor_dict)
@@ -142,9 +157,15 @@ class Client:
                 buffer = self.serializer.encode(command.actuator_dict)
                 _logger.debug('Sending buffer {!r}.'.format(buffer))
                 self.socket.sendto(buffer, self.hostaddr)
+                # self.timeTaken.append(timer() - start)
+                # if self.shit%1000 == 0:
+                #     print("timed at {}ms".format(np.mean(self.timeTaken)*1000))
+                #     self.timeTaken = []
+                # self.shit += 1
 
         except socket.error as ex:
-            _logger.warning('Communication with server failed: {}.'.format(ex))
+            ...
+            #_logger.warning('Communication with server failed: {}.'.format(ex))
 
         except KeyboardInterrupt:
             _logger.info('User requested shutdown.')

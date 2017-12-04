@@ -10,6 +10,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from sensorscreen import SensorScreen
+from nnet_structure import DriverNet
+
 
 
 def brakeAbs (brakePressure, frontSlip):
@@ -26,6 +28,22 @@ def accelTcl (accelPressure, rearSlip):
 	accelPressure = np.clip(accelPressure, 0, 1)
 	return accelPressure
 
+def calcWheelSlip (carSpeedMps, wheelSpinVel):
+	frontSlip = 0.0
+	rearSlip = 0.0
+	if carSpeedMps > 0.001:
+		slips = []
+		for i in range(4):
+			wheelSurfaceSpeed = wheelSpinVel[i] * 0.3306
+			difference = wheelSurfaceSpeed - carSpeedMps
+			proportionalDifference = difference / carSpeedMps
+			slips.append(proportionalDifference)
+		frontSlip = np.mean(slips[0:2]) # only front wheels for ABS
+		rearSlip = np.mean(slips[2:4]) # only rear wheels for TCL
+		avgSlip = np.mean(slips)
+		#print("wheel speeds relative to ground: {} (avg: {:.2f})".format(' '.join(["{0:.2f}".format(i) for i in slips]), avgSlip))
+	return frontSlip, rearSlip
+
 def autoTransmission (gear, rpm, rearSlip):
 	upshiftRpm = 9600
 	downshiftRpm = 3500
@@ -37,144 +55,31 @@ def autoTransmission (gear, rpm, rearSlip):
 		#print ("gear: {}, rpm: {}, downshift!".format(gear, rpm))
 		return gear - 1
 	#print ("gear: {}, rpm: {}".format(gear, rpm))
-
+	if gear < 1: # in neutral
+		return gear + 1
 	return gear
 
 
-# Neural Network Model
-class Net(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size):
-        super(Net, self).__init__()
-        self.fc1 = nn.Linear(input_size, hidden_size)
-        self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, hidden_size)
-        self.fc4 = nn.Linear(hidden_size, hidden_size)
-        self.fc5 = nn.Linear(hidden_size, output_size)
-    
-    def forward(self, x):
-        h = F.relu(self.fc1(x))
-        h = F.relu(self.fc2(h))
-        h = F.relu(self.fc3(h))
-        h = F.relu(self.fc4(h))
-        h = F.tanh(self.fc5(h))
-        return h
-
-    
-class RNNJens(torch.nn.Module):
-    def __init__(self, D_in, H, D_out):
-        """
-        In the constructor we instantiate two nn.Linear modules and assign them as
-        member variables.
-        """
-        super(RNNJens, self).__init__()
-        self.hidden_dim = H
-        
-        self.recurrent = nn.LSTM(D_in, H)
-        self.linear = nn.Linear(H, D_out)
-        self.hidden = self.init_hidden()
-        
-    def init_hidden(self):
-        """
-        Before we've done anything, we dont have any hidden state.
-        Refer to the Pytorch documentation to see exactly
-        why they have this dimensionality.
-        The axes semantics are (num_layers, minibatch_size, hidden_dim)
-        """
-        return (torch.autograd.Variable(torch.zeros(1, 1, self.hidden_dim)),
-                torch.autograd.Variable(torch.zeros(1, 1, self.hidden_dim)))
-    
-    def addNoise(self, noise):
-        print(self.recurrent.weights.shape())
-        
-    def forward(self, x):
-        """
-        In the forward function we accept a Variable of input data and we must return
-        a Variable of output data. We can use Modules defined in the constructor as
-        well as arbitrary operators on Variables.
-        """
-        lstm_out, self.hidden = self.recurrent(x, self.hidden)
-        y = self.linear(lstm_out)
-        y_pred = F.sigmoid(y)
-        
-        return y_pred
-
-class SimpleNetwork(nn.Module):
-    def __init__(self, in_dim, hidden_units, out_dim):
-        super(SimpleNetwork, self).__init__()
-        self.in_dim = in_dim
-        self.hidden_units = hidden_units
-        self.out_dim = out_dim
-
-        self.lin1 = torch.nn.Linear(in_dim, hidden_units)
-        self.lin2 = torch.nn.Linear(hidden_units, out_dim)
-
-    def forward(self, inputs):
-        out = self.lin1(inputs)
-        # out = F.sigmoid(out)
-        out = self.lin2(out)
-        out = F.tanh(out)
-        return out
-
-    def get_n_units(self):
-        return (self.in_dim, self.hidden_units, self.out_dim)
-
-
-
-class RNN2(nn.Module):
-	def __init__(self, input_size, hidden_units, output_size):
-	    super(RNN2, self).__init__()
-
-	    self.hidden_units = hidden_units
-	    self.in_dim = input_size
-	    self.out_dim = output_size
-
-	    # define layers
-	    self.input = nn.Linear(input_size, hidden_units)
-	    self.rnn = nn.LSTM(hidden_units, hidden_units, num_layers=2, dropout=0.05)
-	    self.output = nn.Linear(hidden_units, output_size)
-
-	def forward(self, input, hidden):
-	    inp = self.input(input.view(1,-1)).unsqueeze(1)
-	    output, hidden = self.rnn(inp, hidden)
-	    output = self.output(output.view(1, -1))
-	    return output, hidden
-
-	def init_hidden(self, batch_size):
-	    return (Variable(torch.zeros(2, batch_size, self.hidden_units)),
-	                Variable(torch.zeros(2, batch_size, self.hidden_units)))
-
-	def get_n_units(self):
-	    return (self.in_dim, self.hidden_units, self.out_dim)
-
-def load_model():
-	#Hyper parameters
-	input_size = 22
-	hidden_size = 15
-	output_size = 1
-
-	path = os.path.join('models','steering_22-15-1_RNN.h5')
-
-	#neural_net = torch.load(path)
-	neural_net = RNN2(input_size, hidden_size, output_size)
-	hidden = neural_net.init_hidden(1)
+def load_model(path):
+	#path = os.path.join('models','teringdict.pt')
+	neural_net = DriverNet()
 	neural_net.load_state_dict(torch.load(path))
 
 	return neural_net
 
-def state_var(carstate):
-# 								speedX	speedY	speedZ	trackPos	z	wheelSpinVel01	wheelSpinVel02	wheelSpinVel03	wheelSpinVel04	track00	track18	oppos00	oppos35
 
+def state_var(carstate):
 	# Extract input_data
 	curr_state = np.asarray([
-		# carstate.speed_x, 
-		# carstate.speed_y, 
-		# carstate.speed_z ,
+		carstate.angle,
+		carstate.speed_x / (200.0/3.6), 
+		carstate.speed_y, 
+		carstate.speed_z ,
 		carstate.distance_from_center, 
-		carstate.angle]
-		# carstate.z]
-		+list(carstate.distances_from_edge)
-		# +list(carstate.opponents)
-		)
+		carstate.z]
+		+[bla / (200.0) for bla in list(carstate.distances_from_edge)
+		+[bla / (200.0) for bla in list(carstate.opponents)]
+		])
 	# Turn  input state into Torch variable
 	inp_data = Variable(torch.from_numpy(curr_state).float())
 	return inp_data
@@ -184,12 +89,18 @@ def state_var(carstate):
 
 class MyDriver(Driver):
 
-	def __init__(self,logdata = False):
+	def __init__(self, nnetPath, logdata = False):
 		super().__init__(logdata)
+		self.yeaIFuckedUp = False
+		self.lastMoved = 0.0
+		self.backwardDistance = 0.0
+		self.previousCarstate = 0
+		self.topSpeed = 0.0
+		self.performance = 0.0
 		# default angles, will be overwritten by range_finder_angles()
 		self.rangeAngles = [-90, -65, -50, -35, -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 35, 50, 65, 90]
 		# Load model
-		self.neural_net = load_model()
+		self.neural_net = load_model(nnetPath)
 		# open sensor data viewer
 		self.sensorScreen = SensorScreen()
 		# remembering gas and brake pedals
@@ -203,7 +114,15 @@ class MyDriver(Driver):
 
 	def on_shutdown(self):
 		#self.csvFile.close()
+		# Report performance to evoManager
+		#print("PERFORMANCE:{}".format(self.performance))
+		return self.performance
 		...
+
+	# def on_skip (self, performance):
+	# 	print("My performance: {}".format(performance))
+	# 	print("My own performance: {}".format(self.performance))
+	# 	...
 
 	@property
 	def range_finder_angles(self):
@@ -298,6 +217,36 @@ class MyDriver(Driver):
 		# 	command.gear = 1
 		return command
 
+	def hasFuckedUp (self, carstate, previousCarstate):
+
+		# When I run off the track
+		if abs(carstate.distance_from_center) > 0.8:
+			print("fucked up off the track after {:.1f}m".format(carstate.distance_raced))
+			return True
+
+		# When I haven't really moved in a while
+		if carstate.speed_x > 3:
+			self.lastMoved = carstate.current_lap_time
+		if carstate.current_lap_time - self.lastMoved > 5.0:
+			print("fucked up doing nothing after {:.1f}m".format(carstate.distance_raced))
+			return True
+
+		# When I go backwards 10m
+		distanceTraveled = carstate.distance_from_start - previousCarstate.distance_from_start
+		if distanceTraveled < 0.0:
+			self.backwardDistance -= max(distanceTraveled, -1) # positive
+		elif distanceTraveled > 0.0:
+			self.backwardDistance = 0.0 # reset
+		if self.backwardDistance > 10.0:
+			print("fucked up backwards after {:.1f}m".format(carstate.distance_raced))
+			return True
+
+		# when I'ḿ too slow
+		if carstate.current_lap_time > 300:
+			print("fucked up slowly after {:.1f}m".format(carstate.distance_raced))
+			return True
+
+		return False
 
 	def heat_avoiding_missile(self, opponents_finder):
 		front_lasers = [opponents_finder[16:20]]
@@ -355,38 +304,62 @@ class MyDriver(Driver):
 
 
 	def drive(self, carstate)-> Command:
-		"""
-		Produces driving command in response to newly received car state.
+		if self.previousCarstate == 0:
+			self.previousCarstate = carstate
+		command = Command()
 
-		This is a dummy driving routine, very dumb and not really considering a
-		lot of inputs. But it will get the car (if not disturbed by other
-		drivers) successfully driven along the race track.
-		"""
-		command = self.cruise(carstate)
+		# In evolution mode:
+		# Race casually after you fucked up
+		if self.yeaIFuckedUp:
+			return command
+			#return self.cruise(carstate)
 
 		self.drop_knowledge(carstate, command)
-		# print('angle',carstate.angle)
-		# print('steering converted', ((math.pi*command.steering)/180.0))
+		# for now, drive casually always
+		#command = self.cruise(carstate)
+
+		# drive with neural net
+		nnetOut = self.neural_net(state_var(carstate))[0][0]
+		command.accelerator = nnetOut.data[0]
+		command.brake = nnetOut.data[1]
+		command.steering = nnetOut.data[2]
+
+		# simplify controls to train faster
+		frontSlip, rearSlip = calcWheelSlip(carstate.speed_x, carstate.wheel_velocities)
+		command.gear = autoTransmission(carstate.gear, carstate.rpm, rearSlip)
+		if command.accelerator > 0.5:
+			# step on the fucking gas
+			if carstate.speed_x > 2:
+				self.accelPressure = accelTcl(self.accelPressure, rearSlip)
+			command.accelerator = self.accelPressure
+
+		if command.brake > 0.5:
+			# slam on the brakes, no gas
+			self.brakePressure = brakeAbs(self.brakePressure, frontSlip)
+			command.brake = self.brakePressure
+			command.accelerator = 0.0
+		else:
+			command.brake = 0.0
+
+
+		# Retire when you fucked up. When half of the 
+		# participants have fucked up, the race ends.
+		self.performance = carstate.distance_raced
+		if self.hasFuckedUp(carstate, self.previousCarstate):
+			command.meta = 2
+			self.yeaIFuckedUp = True
+			if carstate.distance_raced > 100 and carstate.distance_raced < 3000:
+				avgSpeed = carstate.distance_raced / carstate.current_lap_time # add early incentive for speed
+				speedBonus = min(avgSpeed, 60.0) # passing startfinish can fuck it up
+				crashSpeedPenalty = carstate.speed_x * 3.6 # in kph for extra negative incentive
+				brakingBonus = crashSpeedPenalty * (1.0 - command.brake) * 0.5 # give some slack when he was at least braking
+				self.performance += speedBonus
+				self.performance -= crashSpeedPenalty
+				self.performance += brakingBonus
+				self.performance = max(self.performance, 1.0) # prevent being randomized
+
+
 		#self.writeCsv(carstate, command)
-		# command = Command()
-		# state = state_var(carstate)
-
-
-		# net = load_model()
-		# hidden = net.init_hidden(1)
-		# model_outp = net(state,hidden)
-		# print(model_outp)
-
-		# v_x = 0
-
-		# command.accelerator = v_x
-		# command.steering = model_outp[0].data[0]* 0.5
-		# print(command.steering)
-		#print(model_outp.data[0])
-		#if carstate.current_lap_time > 10:
-		# command.steering = model_outp.data[0]
-
-
 		#print('output0',float(model_outp.data[0]))
 		command.gear = autoTransmission(carstate.gear,carstate.rpm,0)
 		#print('accel: {} brake: {} steer: {}'.format(model_outp.data[0], model_outp.data[1], model_outp.data[2]))
@@ -418,8 +391,8 @@ class MyDriver(Driver):
 		# print('brake command', model_outp.data[1])
 
 		# self.accelerate(carstate, v_x, command)
-		# carstate.angle *= math.pi/180.0
-		self.sensorScreen.update(carstate, self.rangeAngles)
+		#self.sensorScreen.update(carstate, self.rangeAngles)
+		self.previousCarstate = carstate
 		return command
 
 
