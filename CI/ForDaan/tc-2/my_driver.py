@@ -562,6 +562,91 @@ class MyDriver(Driver):
 			self.writeCsvRow(carstate, command, maxAngle, targetSpeed)
 		return command
 
+	def hasFuckedUp (self, carstate, previousCarstate):
+
+		# When I run off the track
+		if abs(carstate.distance_from_center) > 0.8:
+			print("fucked up off the track after {:.1f}m".format(carstate.distance_raced))
+			return True
+
+		# When I haven't really moved in a while
+		if carstate.speed_x > 3:
+			self.lastMoved = carstate.current_lap_time
+		if carstate.current_lap_time - self.lastMoved > 5.0:
+			print("fucked up doing nothing after {:.1f}m".format(carstate.distance_raced))
+			return True
+
+		# When I go backwards 10m
+		distanceTraveled = carstate.distance_from_start - previousCarstate.distance_from_start
+		if distanceTraveled < 0.0:
+			self.backwardDistance -= max(distanceTraveled, -1) # positive
+		elif distanceTraveled > 0.0:
+			self.backwardDistance = 0.0 # reset
+		if self.backwardDistance > 10.0:
+			print("fucked up backwards after {:.1f}m".format(carstate.distance_raced))
+			return True
+
+		# when I'ḿ too slow
+		if carstate.current_lap_time > 300:
+			print("fucked up slowly after {:.1f}m".format(carstate.distance_raced))
+			return True
+
+		return False
+
+	def heat_avoiding_missile(self, opponents_finder):
+		front_lasers = [opponents_finder[16:20]]
+		opp_dist = np.min(front_lasers)
+		maxIndex = np.argmax(front_lasers)
+
+		# print('16',opponents_finder[16])
+		
+		# print('17',opponents_finder[17])
+
+		# print('18',opponents_finder[18])
+
+		# print('19',opponents_finder[19])
+
+		steering = 0
+		# min_opp_dist = 100
+		# if opp_dist < min_opp_dist:
+		# 	if:
+				
+		# 		action = clip(min_opp_dist - opp_dist, 0, min_opp_dist)
+		# 		action /= min_opp_dist
+		# 		action *= action
+		# 		angle = -self.rangeAngles[maxIndex] * math.pi/180.0)
+		# 		steering = angle / math.pi
+		# 		print('steer to: ', maxIndex)
+
+		return steering
+
+
+	def drop_knowledge(self, carstate, command):
+		# {dist from start (int): angle of steering + angle(bycicle model),....}
+
+		self.total_angle = carstate.angle+((math.pi*command.steering)/180.0)
+		# Interpolation TODO?
+		print('dist raced', carstate.distance_from_start)
+		#drop knowledge every 5m (TODO: Only if you are front car which drives savely)
+		if (int(carstate.distance_from_start)) and (carstate.last_lap_time ==0):
+			self.total_angle_prev = self.total_angle
+			self.track_knowledge[int(carstate.distance_from_start)] = self.total_angle
+			# print('lap1',command.steering)
+		# second round first car starts using the knowledge as well
+		elif(carstate.last_lap_time != 0):
+			print('lookup steering angle last round:')
+			print('lookup',(self.track_knowledge[str(int(carstate.distance_from_start))]
+				*180/math.pi)
+
+			command.steering = (
+				self.steerToCenter(carstate.distance_from_center) +
+				(self.track_knowledge[str(int(carstate.distance_from_start))]*180/(math.pi)))
+			print('lap2',command.steering)
+
+
+		# print('prev_lap_time',carstate.last_lap_time) 
+		# print(self.track_knowledge)
+
 
 	def drive(self, carstate)-> Command:
 		if self.shouldJustCruise:
