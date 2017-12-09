@@ -7,6 +7,8 @@ class Controller(abc.ABC):
     """Base class for a numeric controller."""
 
     last_value = 0.0
+    fixedTimestep = 0.02 # edit daan
+    passedTime = 0.0
 
     @abc.abstractproperty
     def shortname(self):
@@ -15,6 +17,11 @@ class Controller(abc.ABC):
     @abc.abstractmethod
     def control(self, deviation, timestamp) -> float:
         """Compute control variable from deviation of outputs."""
+
+    def controlLazy(self, deviation):
+        self.passedTime += self.fixedTimestep
+        self.last_value = self.control(deviation, self.passedTime)
+        return self.last_value
 
     def reset(self):
         """Resets any history that my be stored in controller state."""
@@ -40,6 +47,7 @@ class ProportionalController(Controller):
     def control(self, deviation, timestamp):
         value = self.gain * deviation
         self.last_value = value
+        #print("P action: {:.3f}".format(value))
         return value
 
 
@@ -65,6 +73,7 @@ class DerivativeController(Controller):
         self.last_value = value
         self.last_deviation = deviation
         self.last_timestamp = timestamp
+        #print("D action: {:.3f}".format(value))
         return value
 
     def reset(self):
@@ -97,6 +106,7 @@ class IntegrationController(Controller):
         self.last_timestamp = timestamp
         value = self.gain * self.integral
         self.last_value = value
+        #print("I action: {:.3f}".format(value))
         return value
 
     def reset(self):
@@ -117,3 +127,18 @@ class CompositeController(Controller):
 
     def __str__(self):
         return ', '.join(str(c) for c in self.controllers)
+
+
+# class CompositeLimitController(CompositeController):
+#     def __init__(self, limit, limitAbove, *controllers):
+#         super().__init__(*controllers)
+#         self.limit = limit
+#         self.limitAbove = limitAbove
+
+#     def controlToLimit(self, value):
+#         self.last_value = value
+#         if (self.limitAbove and value > self.limit) or (not self.limitAbove and value < self.limit):
+#             return super().controlLazy(value - self.limit)
+#         else:
+#             return 0.0
+
