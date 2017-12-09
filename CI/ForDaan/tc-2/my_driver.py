@@ -167,7 +167,7 @@ class MyDriver(Driver):
 		self.totalSteering = 0.0
 
 		self.enableSafetyRepulsion = False
-		self.shouldJustCruise = False
+		self.shouldJustCruise = True
 		# write data for training
 		self.writeCsv = False
 		if self.writeCsv:
@@ -621,27 +621,27 @@ class MyDriver(Driver):
 		return steering
 
 
-	def drop_knowledge(self, carstate, command):
-		# {dist from start (int): angle of steering + angle(bycicle model),....}
+	# def drop_knowledge(self, carstate, command):
+	# 	# {dist from start (int): angle of steering + angle(bycicle model),....}
 
-		self.total_angle = carstate.angle+((math.pi*command.steering)/180.0)
-		# Interpolation TODO?
-		print('dist raced', carstate.distance_from_start)
-		#drop knowledge every 5m (TODO: Only if you are front car which drives savely)
-		if (int(carstate.distance_from_start)) and (carstate.last_lap_time ==0):
-			self.total_angle_prev = self.total_angle
-			self.track_knowledge[int(carstate.distance_from_start)] = self.total_angle
-			# print('lap1',command.steering)
-		# second round first car starts using the knowledge as well
-		elif(carstate.last_lap_time != 0):
-			print('lookup steering angle last round:')
-			print('lookup',(self.track_knowledge[str(int(carstate.distance_from_start))]
-				*180/math.pi)
+	# 	self.total_angle = carstate.angle+((math.pi*command.steering)/180.0)
+	# 	# Interpolation TODO?
+	# 	print('dist raced', carstate.distance_from_start)
+	# 	#drop knowledge every 5m (TODO: Only if you are front car which drives savely)
+	# 	if (int(carstate.distance_from_start)) and (carstate.last_lap_time ==0):
+	# 		self.total_angle_prev = self.total_angle
+	# 		self.track_knowledge[int(carstate.distance_from_start)] = self.total_angle
+	# 		# print('lap1',command.steering)
+	# 	# second round first car starts using the knowledge as well
+	# 	elif(carstate.last_lap_time != 0):
+	# 		print('lookup steering angle last round:')
+	# 		print('lookup',(self.track_knowledge[str(int(carstate.distance_from_start))]
+	# 			*180/math.pi)
 
-			command.steering = (
-				self.steerToCenter(carstate.distance_from_center) +
-				(self.track_knowledge[str(int(carstate.distance_from_start))]*180/(math.pi)))
-			print('lap2',command.steering)
+	# 		command.steering = (
+	# 			self.steerToCenter(carstate.distance_from_center) +
+	# 			(self.track_knowledge[str(int(carstate.distance_from_start))]*180/(math.pi)))
+	# 		print('lap2',command.steering)
 
 
 		# print('prev_lap_time',carstate.last_lap_time) 

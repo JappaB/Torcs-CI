@@ -78,7 +78,7 @@ class DriverNet (torch.nn.Module):
 			nnet = DriverNet(variant)
 			# if torch.cuda.is_available():
 			# 	nnet = nnet.cuda()
-			nnet.load_state_dict(torch.load(filePath))
+			nnet.load_state_dict(torch.load(filePath, map_location=lambda storage, loc: storage))
 			nnets[variant] = nnet
 		return nnets
 
